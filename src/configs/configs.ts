@@ -1,0 +1,15 @@
+import dotenv from "dotenv";
+import { StringValue } from "ms";
+
+dotenv.config();
+
+export const configs = {
+  APP_PORT: process.env.APP_PORT || 3001,
+
+  MONGO_URL: process.env.MONGO_URL,
+
+  JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET as StringValue,
+  JWT_ACCESS_EXPIRATION: process.env.JWT_ACCESS_EXPIRATION as StringValue,
+  JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET as StringValue,
+  JWT_REFRESH_EXPIRATION: process.env.JWT_REFRESH_EXPIRATION as StringValue,
+};
