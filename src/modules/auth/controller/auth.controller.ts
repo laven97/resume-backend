@@ -2,7 +2,6 @@ import { Response, Request, NextFunction } from "express";
 
 import { IUser, SignInType } from "../../user/interface/user.interface";
 import { authService } from "../service/auth.service";
-import { ITokenPayload } from "../interface/token.interface";
 
 class AuthController {
   public async signUp(req: Request, res: Response, next: NextFunction) {
@@ -25,17 +24,17 @@ class AuthController {
     }
   }
 
-  public async logout(req: Request, res: Response, next: NextFunction) {
-    try {
-      const tokenId = res.locals.tokenId as string;
-      const jwtPayload = res.locals.jwtPayload as ITokenPayload;
+  // public async logout(req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     const tokenId = res.locals.tokenId as string;
+  //     const jwtPayload = res.locals.jwtPayload as ITokenPayload;
 
-      await authService.logout(jwtPayload, tokenId);
-      res.sendStatus(204);
-    } catch (err) {
-      next(err);
-    }
-  }
+  //     await authService.logout(jwtPayload, tokenId);
+  //     res.sendStatus(204);
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // }
 }
 
 export const authController = new AuthController();

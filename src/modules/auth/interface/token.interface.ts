@@ -3,7 +3,6 @@ import { UserRole } from "../../user/emum/user.enum";
 export interface IToken {
   _id?: string;
   refreshToken: string;
-  accessToken: string;
   userId: string;
 }
 

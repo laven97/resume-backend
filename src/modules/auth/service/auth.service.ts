@@ -1,9 +1,7 @@
-
-
 import { ApiError } from "../../../common/errors/api-error";
 import { IUser, SignInType } from "../../user/interface/user.interface";
 import { userRepository } from "../../user/repository/user.repository";
-import { ITokenPair, ITokenPayload } from "../interface/token.interface";
+import { ITokenPair } from "../interface/token.interface";
 import { tokenRepository } from "../repository/token.repository";
 import { passwordService } from "./password.service";
 import { tokenService } from "./token.service";
@@ -21,8 +19,6 @@ class AuthService {
       role: user.role,
     });
     await tokenRepository.create({ ...tokens, userId: user._id!.toString() });
-
-    
 
     // await emailService.sendMail(EmaiTypeEnum.WElCOME,user.email, {name:user.name})
 
@@ -45,24 +41,25 @@ class AuthService {
       throw new ApiError("Invalid credentials", 401);
     }
 
-    const tokens = await tokenService.generateTokenPair({
+    const { refreshToken, accessToken } = await tokenService.generateTokenPair({
       userId: user._id!.toString(),
       role: user.role,
     });
     await tokenRepository.create({
-      ...tokens,
+      refreshToken,
       userId: user._id!.toString(),
     });
-    return { user, tokens };
+
+    return { user, tokens: { accessToken, refreshToken } };
   }
 
-  public async logout(
-    jwtPayload: ITokenPayload,
-    tokenId: string
-  ): Promise<void> {
-    // const user = await userRepository.getById(jwtPayload.userId)
-    await tokenRepository.deleteOnByParams({ _id: tokenId });
-  }
+  // public async logout(
+  //   jwtPayload: ITokenPayload,
+  //   tokenId: string
+  // ): Promise<void> {
+  //   const user = await userRepository.getById(jwtPayload.userId)
+  //   await tokenRepository.deleteOnByParams({refreshToken});
+  // }
 
   private async isEmailExistOrThrow(email: string): Promise<void> {
     const user = await userRepository.getByEmail(email);

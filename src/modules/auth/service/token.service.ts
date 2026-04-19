@@ -1,16 +1,63 @@
 import jwt from "jsonwebtoken";
+
 import { ITokenPair, ITokenPayload } from "../interface/token.interface";
 import { configs } from "../../../configs/configs";
+import { TokenTypeEnum } from "../enums/token-type.enum";
+import { ActionTokenTypeEnum } from "../enums/action-token-type.enum";
+import { ApiError } from "../../../common/errors/api-error";
 
 class TokenService {
-  public async generateTokenPair(payload: ITokenPayload): Promise<ITokenPair> {
-    const accessToken = jwt.sign(payload, configs.JWT_ACCESS_SECRET, {
+  public generateAccessToken(payload: ITokenPayload): string {
+    return jwt.sign(payload, configs.JWT_ACCESS_SECRET, {
       expiresIn: configs.JWT_ACCESS_EXPIRATION,
     });
-    const refreshToken = jwt.sign(payload, configs.JWT_REFRESH_SECRET, {
+  }
+
+  public generateRefreshToken(payload: ITokenPayload): string {
+    return jwt.sign(payload, configs.JWT_REFRESH_SECRET, {
       expiresIn: configs.JWT_REFRESH_EXPIRATION,
     });
-    return { accessToken, refreshToken };
+  }
+
+  public generateTokenPair(payload: ITokenPayload): ITokenPair {
+    return {
+      accessToken: this.generateAccessToken(payload),
+      refreshToken: this.generateRefreshToken(payload),
+    };
+  }
+
+  public async verifyToken(
+    token: string,
+    type: TokenTypeEnum | ActionTokenTypeEnum
+  ): Promise<ITokenPayload> {
+    try {
+      let secret: string;
+
+      switch (type) {
+        case TokenTypeEnum.ACCESS:
+          secret = configs.JWT_ACCESS_SECRET;
+          break;
+
+        case TokenTypeEnum.REFRESH:
+          secret = configs.JWT_REFRESH_SECRET;
+          break;
+
+        case ActionTokenTypeEnum.FORGOT_PASSWORD:
+          secret = configs.ACTION_FORGOT_PASSWORD_SECRET;
+          break;
+
+        case ActionTokenTypeEnum.VERIFY_EMAIL:
+          secret = configs.ACTION_VERIFY_EMAIL_SECRET;
+          break;
+
+        default:
+          throw new ApiError("Invalid token type", 400);
+      }
+
+      return jwt.verify(token, secret) as ITokenPayload;
+    } catch (e) {
+      throw new ApiError("Invalid token type", 401);
+    }
   }
 
   // public async generateTokenAction(
