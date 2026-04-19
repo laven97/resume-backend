@@ -1,9 +1,9 @@
 import express from "express";
 
 import { configs } from "./configs/configs";
-import { authRouter } from "./routes/auth/auth.router";
-import { parfumeRouter } from "./routes/parfume/parfume.router";
-import { userRouter } from "./routes/user/user.router";
+import { authRouter } from "./modules/auth/routes/auth.router";
+import { parfumeRouter } from "./modules/parfume/routes/parfume.router";
+import { userRouter } from "./modules/user/routes/user.router";
 import { connectMongoDB } from "./db/mongoDB";
 
 const app = express();
