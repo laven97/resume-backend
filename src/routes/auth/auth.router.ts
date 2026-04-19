@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {celebrate} from "celebrate"
+import { celebrate } from "celebrate";
 
 import { authController } from "../../controllers/auth/auth.controller";
 import { AuthValidation } from "../../validation/auth/auth.validator";
@@ -11,5 +11,13 @@ router.post(
   celebrate(AuthValidation.registerUserSchema),
   authController.signUp
 );
+
+router.post(
+  "/sign-in",
+  celebrate(AuthValidation.loginUserSchema),
+  authController.signIn
+);
+
+router.post("/logout", authController.logout);
 
 export const authRouter = router;

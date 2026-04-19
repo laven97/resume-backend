@@ -11,3 +11,17 @@ export interface IUser {
   phone?: string;
   avatar?: string;
 }
+
+export type SignInType = Pick<IUser, "email" | "password">;
+
+export type IUserResponse = Pick<
+  IUser,
+  "_id" | "name" | "email" | "role" | "avatar" | "isDeleted" | "isVerified"
+>;
+
+
+export interface IUserListQuery {
+  limit?:number,
+  page?:number,
+  search?:string,
+}

@@ -2,15 +2,19 @@ import { model, Schema } from "mongoose";
 import { UserRole } from "../../enums/user/user.enum";
 import { IUser } from "../../interfaces/user/user.interface";
 
-
 const userSchema = new Schema(
   {
-    userId: { type: String },
+    userId: { type: String, required: true },
     email: { type: String, required: true, trim: true, unique: true },
-    password: { type: String, required: true, select: false },
-    name: { type: String },
-    avatar: { type: String },
-    role: { type: String, enum: UserRole, default: UserRole.USER },
+    password: { type: String, required: true },
+    name: { type: String, requered: true },
+    avatar: { type: String, required: false },
+    role: {
+      type: String,
+      enum: UserRole,
+      default: UserRole.USER,
+      required: true,
+    },
     phone: { type: String, required: false },
     isVerified: { type: Boolean, default: false },
     isDeleted: { type: Boolean, default: false },

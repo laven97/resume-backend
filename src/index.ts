@@ -2,6 +2,8 @@ import express from "express";
 
 import { configs } from "./configs/configs";
 import { authRouter } from "./routes/auth/auth.router";
+import { parfumeRouter } from "./routes/parfume/parfume.router";
+import { userRouter } from "./routes/user/user.router";
 import { connectMongoDB } from "./db/mongoDB";
 
 const app = express();
@@ -9,6 +11,8 @@ const app = express();
 app.use(express.json());
 
 app.use("/auth", authRouter);
+app.use("/parfume", parfumeRouter);
+app.use("/user", userRouter);
 
 const start = async () => {
   try {
@@ -22,4 +26,4 @@ const start = async () => {
   }
 };
 
-start()
+start();
