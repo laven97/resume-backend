@@ -26,4 +26,10 @@ export class AuthValidation {
       password: this.password,
     }),
   };
+
+  public static logoutSchema = {
+    [Segments.BODY]: Joi.object({
+      refreshToken: Joi.string().required(),
+    }),
+  };
 }

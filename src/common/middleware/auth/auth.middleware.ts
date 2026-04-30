@@ -23,13 +23,13 @@ class AuthMiddleware {
       if (!accessToken) {
         throw new ApiError("Token is empty", 401);
       }
-      
+
       const payload = await tokenService.verifyToken(
         accessToken,
         TokenTypeEnum.ACCESS
       );
 
-      res.locals.jwtPayload = payload;
+      req.user = payload;
       next();
     } catch (err) {
       next(err);

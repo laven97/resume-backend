@@ -1,7 +1,7 @@
 import { ApiError } from "../../../common/errors/api-error";
 import { IUser, SignInType } from "../../user/interface/user.interface";
 import { userRepository } from "../../user/repository/user.repository";
-import { ITokenPair } from "../interface/token.interface";
+import { ITokenPair, ITokenPayload } from "../interface/token.interface";
 import { tokenRepository } from "../repository/token.repository";
 import { passwordService } from "./password.service";
 import { tokenService } from "./token.service";
@@ -53,13 +53,32 @@ class AuthService {
     return { user, tokens: { accessToken, refreshToken } };
   }
 
-  // public async logout(
-  //   jwtPayload: ITokenPayload,
-  //   tokenId: string
-  // ): Promise<void> {
-  //   const user = await userRepository.getById(jwtPayload.userId)
-  //   await tokenRepository.deleteOnByParams({refreshToken});
-  // }
+  public async logout(
+    jwtPayload: ITokenPayload,
+    refreshToken: string
+  ): Promise<void> {
+    const token = await tokenRepository.findByParams({ refreshToken });
+    if (!token) {
+      throw new ApiError("Token not found", 404);
+    }
+
+    await tokenRepository.deleteOneByParams({ _id: token._id });
+  }
+
+  public async refreshTokens(
+    refreshToken: string,
+    payload: ITokenPayload
+  ): Promise<ITokenPair> {
+    await tokenRepository.deleteOneByParams({ refreshToken });
+    const tokens = tokenService.generateTokenPair({
+      userId: payload.userId,
+      role: payload.role,
+    });
+
+    await tokenRepository.create({ ...tokens, userId: payload.userId });
+
+    return tokens;
+  }
 
   private async isEmailExistOrThrow(email: string): Promise<void> {
     const user = await userRepository.getByEmail(email);

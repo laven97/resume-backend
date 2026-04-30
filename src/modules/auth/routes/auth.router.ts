@@ -3,6 +3,7 @@ import { celebrate } from "celebrate";
 
 import { AuthValidation } from "../validation/auth.validator";
 import { authController } from "../controller/auth.controller";
+import { authMiddleware } from "../../../common/middleware/auth/auth.middleware";
 
 const router = Router();
 
@@ -18,6 +19,13 @@ router.post(
   authController.signIn
 );
 
-// router.post("/logout", authController.logout);
+router.post(
+  "/logout",
+  authMiddleware.checkAccessToken,
+  celebrate(AuthValidation.logoutSchema),
+  authController.logout
+);
+
+router.post("refresh",authController.refreshTokens)
 
 export const authRouter = router;

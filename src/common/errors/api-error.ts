@@ -3,6 +3,7 @@ export class ApiError extends Error {
     public message: string,
     public status: number
   ) {
-    (super(message), (this.status = status));
+    super(message);
+    this.status = status;
   }
 }

@@ -6,7 +6,7 @@ class TokenRepository {
     return await Token.create(dto);
   }
 
-  public async deleteOnByParams(params: Partial<IToken>): Promise<void> {
+  public async deleteOneByParams(params: Partial<IToken>): Promise<void> {
     await Token.deleteOne(params);
   }
 
