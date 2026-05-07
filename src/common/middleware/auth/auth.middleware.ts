@@ -1,12 +1,18 @@
 import { NextFunction, Request, Response } from "express";
 
 import { ApiError } from "../../errors/api-error";
-import { tokenService } from "../../../modules/auth/service/token.service";
+
 import { TokenTypeEnum } from "../../../modules/auth/enums/token-type.enum";
+import { ITokenPayload } from "../../../modules/auth/interface/token.interface";
+import { tokenService } from "../../../modules/auth/service/auth/token.service";
+
+interface RequestWithUser extends Request {
+  user?: ITokenPayload;
+}
 
 class AuthMiddleware {
   public async checkAccessToken(
-    req: Request,
+    req: RequestWithUser,
     res: Response,
     next: NextFunction
   ) {

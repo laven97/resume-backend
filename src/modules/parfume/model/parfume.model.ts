@@ -12,6 +12,7 @@ const parfumeSchema = new Schema({
   // topNotes: { type: String, required: true },
   // heartNotes: { type: String, required: true },
   // baseNotes: { type: String, required: true },
+  // stock : {type:Bollean,requered:true}
   price: { type: Number, required: true },
 });
 

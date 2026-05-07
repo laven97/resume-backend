@@ -15,10 +15,10 @@ Backend API for a perfume catalog application with authentication, admin panel, 
 * JWT authentication ✅
 * Password reset via email:
 
-  * Forgot password (email with reset link)
+  * Forgot password (email with reset link) NOT DONE YET
   * Reset password (via token)
 * Email verification (optional) ✅
-* Role-based access control (USER / ADMIN)
+* Role-based access control (USER / ADMIN/ GUEST) ✅
 
 ---
 
@@ -42,9 +42,9 @@ Backend API for a perfume catalog application with authentication, admin panel, 
 
 ### 🌸 Perfume Management
 
-* Create perfume (ADMIN) ✅❎ not exactly done
-* Update perfume (ADMIN)  ✅❎ not exactly done
-* Delete perfume (ADMIN) ✅❎ not exactly done
+* Create perfume (ADMIN) ✅
+* Update perfume (ADMIN)  ✅
+* Delete perfume (ADMIN) ✅
 * Get perfume by ID ✅
 * Get all perfumes (with pagination)✅
 
@@ -155,6 +155,15 @@ Backend API for a perfume catalog application with authentication, admin panel, 
   POST /
   DELETE /:id
 ```
+
+/cart
+  GET /              -> Get current user's cart
+  POST /add          -> Add perfume to cart
+  PUT /item/:id      -> Update item quantity
+  DELETE /item/:id   -> Remove item from cart
+  DELETE /clear      -> Clear cart
+
+
 
 ---
 

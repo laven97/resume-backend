@@ -1,28 +1,36 @@
 import { NextFunction, Request, Response } from "express";
-import { ApiError } from "../../errors/api-error";
+
 import { Permissions } from "../../../modules/user/types/permision.type";
-import { rolePermissions } from "../../../modules/user/prermisiions/role-permission";
+import { ApiError } from "../../errors/api-error";
 
-class RoleState {
-  public can(permission: Permissions) {
-    return (req: Request, res: Response, next: NextFunction) => {
-      try {
-        if (!req.user) {
-          throw new ApiError("Not authenticated", 401);
-        }
+import { ITokenPayload } from "../../../modules/auth/interface/token.interface";
+import { rolePermissions } from "../../../modules/user/prermission/role-permission";
+import { UserRole } from "../../../modules/user/enum/user.enum";
 
-        const permissions = rolePermissions[req.user.role] || [];
-
-        if (!permissions.includes(permission)) {
-          throw new ApiError("Forbidden", 403);
-        }
-
-        next();
-      } catch (err) {
-        next(err);
-      }
-    };
-  }
+interface RequestWithUser extends Request {
+  user?: ITokenPayload;
 }
 
-export const roleState = new RoleState();
+export const checkAccess = (requiredPermission: Permissions) => {
+  return (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const user = req.user;
+      if (!user) {
+        throw new ApiError("User not found", 401);
+      }
+
+      if (user.role === UserRole.ADMIN) {
+        return next();
+      }
+
+      const userPermission = rolePermissions[user.role] || [];
+      if (!userPermission.includes(requiredPermission)) {
+        throw new ApiError("Forbidden", 403);
+      }
+
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };
+};

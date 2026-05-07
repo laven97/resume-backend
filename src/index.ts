@@ -2,9 +2,10 @@ import express from "express";
 
 import { configs } from "./configs/configs";
 import { authRouter } from "./modules/auth/routes/auth.router";
-import { parfumeRouter } from "./modules/parfume/routes/parfume.router";
+
 import { userRouter } from "./modules/user/routes/user.router";
 import { connectMongoDB } from "./db/mongoDB";
+import { parfumeRouter } from "./modules/parfume/routes/parfume/parfume.router";
 
 const app = express();
 

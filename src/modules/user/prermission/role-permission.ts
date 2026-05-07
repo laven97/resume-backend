@@ -1,4 +1,4 @@
-import { UserRole } from "../emum/user.enum";
+import { UserRole } from "../enum/user.enum";
 import { Permissions } from "../types/permision.type";
 
 export const rolePermissions: Record<UserRole, Permissions[]> = {

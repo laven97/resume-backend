@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-
-import { ITokenPayload } from "../../auth/interface/token.interface";
-import { userService } from "../service/user.service";
-import { userPresenter } from "../presenter/user.presenter";
-import { IUser } from "../interface/user.interface";
+import { ITokenPayload } from "../../../auth/interface/token.interface";
+import { userService } from "../../service/user/user.service";
+import { userPresenter } from "../../presenter/user.presenter";
+import { IUser } from "../../interface/user.interface";
 
 class UserController {
   public async getMe(req: Request, res: Response, next: NextFunction) {

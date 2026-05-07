@@ -1,9 +1,12 @@
-import { ApiError } from "../../../common/errors/api-error";
-import { IUser, SignInType } from "../../user/interface/user.interface";
-import { userRepository } from "../../user/repository/user.repository";
-import { ITokenPair, ITokenPayload } from "../interface/token.interface";
-import { tokenRepository } from "../repository/token.repository";
-import { passwordService } from "./password.service";
+import { ApiError } from "../../../../common/errors/api-error";
+import { IUser, SignInType } from "../../../user/interface/user.interface";
+import { userRepository } from "../../../user/repository/user.repository";
+import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum";
+import { EmaiTypeEnum } from "../../enums/email-type.enum";
+import { ITokenPair, ITokenPayload } from "../../interface/token.interface";
+import { tokenRepository } from "../../repository/token.repository";
+import { emailService } from "../email/email.service";
+import { passwordService } from "../password/password.service";
 import { tokenService } from "./token.service";
 
 class AuthService {
@@ -15,12 +18,23 @@ class AuthService {
     const user = await userRepository.createUser({ ...dto, password });
 
     const tokens = await tokenService.generateTokenPair({
-      userId: user._id!.toString(),
+      id: user._id!.toString(),
       role: user.role,
     });
     await tokenRepository.create({ ...tokens, userId: user._id!.toString() });
 
-    // await emailService.sendMail(EmaiTypeEnum.WElCOME,user.email, {name:user.name})
+      const token = await tokenService.generateTokenAction(
+      {
+        id: user._id!.toString(),
+        role: user.role,
+      },
+      ActionTokenTypeEnum.VERIFY_EMAIL
+    );
+    
+    await emailService.sendMail(EmaiTypeEnum.WElCOME, user.email, {
+      name: user.name,
+      actionToken: token,
+    });
 
     return { user, tokens };
   }
@@ -42,7 +56,7 @@ class AuthService {
     }
 
     const { refreshToken, accessToken } = await tokenService.generateTokenPair({
-      userId: user._id!.toString(),
+      id: user._id!.toString(),
       role: user.role,
     });
     await tokenRepository.create({
@@ -71,11 +85,11 @@ class AuthService {
   ): Promise<ITokenPair> {
     await tokenRepository.deleteOneByParams({ refreshToken });
     const tokens = tokenService.generateTokenPair({
-      userId: payload.userId,
+      id: payload.id,
       role: payload.role,
     });
 
-    await tokenRepository.create({ ...tokens, userId: payload.userId });
+    await tokenRepository.create({ ...tokens, userId: payload.id });
 
     return tokens;
   }

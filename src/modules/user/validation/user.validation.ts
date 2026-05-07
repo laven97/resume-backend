@@ -1,5 +1,7 @@
 import Joi from "joi";
-import { regexConstant } from "../../../constants/regex.constant";
+
+import { regexConstant } from "../../auth/constant/regex.constant";
+
 
 export class UserValidation {
   //   private static email = Joi.string()

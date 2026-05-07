@@ -10,6 +10,7 @@ export class ParfumeValidation {
 //   private static topNotes = Joi.string().trim();
 //   private static heartNotes = Joi.string().trim();
 //   private static baseNotes = Joi.string().trim();
+// private static stoke = Joi.boolean()
   private static price = Joi.number();
 
   public static createParfume = {

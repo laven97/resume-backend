@@ -1,11 +1,12 @@
 import nodemailer, { Transporter } from "nodemailer";
 import path from "path";
 import hbs from "nodemailer-express-handlebars";
+import { configs } from "../../../../configs/configs";
+import { EmaiTypeEnum } from "../../enums/email-type.enum";
+import { EmailTypeToPayload } from "../../types/email-type-to-payload";
+import { emailConstant } from "../../constant/email.constant";
 
-import { configs } from "../../../configs/configs";
-import { EmailTypeToPayload } from "../types/email-type-to-payload";
-import { EmaiTypeEnum } from "../enums/email-type.enum";
-import { emailConstant } from "../constant/email.constant";
+
 
 class EmailService {
   private transporter: Transporter;
@@ -39,7 +40,6 @@ class EmailService {
   ): Promise<void> {
     const { subject, template } = emailConstant[type];
 
-    context["front-url"] = configs.APP_FRON_URL;
     const options = { to, subject, template, context };
     await this.transporter.sendMail(options);
   }
