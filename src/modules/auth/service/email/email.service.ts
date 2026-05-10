@@ -6,28 +6,50 @@ import { EmaiTypeEnum } from "../../enums/email-type.enum";
 import { EmailTypeToPayload } from "../../types/email-type-to-payload";
 import { emailConstant } from "../../constant/email.constant";
 
-
-
 class EmailService {
   private transporter: Transporter;
   constructor() {
     this.transporter = nodemailer.createTransport({
       host: configs.SMTP_HOST,
-      from: configs.SMTP_FROM,
+      port: Number(configs.SMTP_PORT),
       auth: {
         user: configs.SMTP_USER,
-        pass: configs.SMPT_PASSWORD,
+        pass: configs.SMTP_PASSWORD,
       },
     });
+
+    console.log("SMTP_USER:", configs.SMTP_USER);
+    console.log("SMTP_PASSWORD:", configs.SMTP_PASSWORD);
 
     const hbsOption = {
       viewEngine: {
         extname: ".hbs",
-        defaultlayout: "main",
-        layoutDir: path.join(process.cwd(), "src", "tempates", "latouts"),
-        partialDir: path.join(process.cwd(), "src", "tempates", "partials"),
+        defaultLayout: "main",
+        layoutsDir: path.join(
+          process.cwd(),
+          "src",
+          "modules",
+          "auth",
+          "templates",
+          "layouts"
+        ),
+        partialsDir: path.join(
+          process.cwd(),
+          "src",
+          "modules",
+          "auth",
+          "templates",
+          "partials"
+        ),
       },
-      viewPath: path.join(process.cwd(), "src", "templates", "views"),
+      viewPath: path.join(
+        process.cwd(),
+        "src",
+        "modules",
+        "auth",
+        "templates",
+        "views"
+      ),
       extName: ".hbs",
     };
     this.transporter.use("compile", hbs(hbsOption));
@@ -40,7 +62,7 @@ class EmailService {
   ): Promise<void> {
     const { subject, template } = emailConstant[type];
 
-    const options = { to, subject, template, context };
+    const options = { from: configs.SMTP_FROM, to, subject, template, context };
     await this.transporter.sendMail(options);
   }
 }

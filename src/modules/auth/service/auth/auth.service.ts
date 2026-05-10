@@ -3,7 +3,9 @@ import { IUser, SignInType } from "../../../user/interface/user.interface";
 import { userRepository } from "../../../user/repository/user.repository";
 import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum";
 import { EmaiTypeEnum } from "../../enums/email-type.enum";
-import { ITokenPair, ITokenPayload } from "../../interface/token.interface";
+import { ITokenPair, ITokenPayload } from "../../interface/token/token.interface";
+
+import { actionTokenRepository } from "../../repository/actionToken.repository";
 import { tokenRepository } from "../../repository/token.repository";
 import { emailService } from "../email/email.service";
 import { passwordService } from "../password/password.service";
@@ -23,18 +25,24 @@ class AuthService {
     });
     await tokenRepository.create({ ...tokens, userId: user._id!.toString() });
 
-      const token = await tokenService.generateTokenAction(
+    const token = await tokenService.generateTokenAction(
       {
         id: user._id!.toString(),
         role: user.role,
       },
       ActionTokenTypeEnum.VERIFY_EMAIL
     );
-    
-    await emailService.sendMail(EmaiTypeEnum.WElCOME, user.email, {
+    await actionTokenRepository.create({
+      token,
+      type: ActionTokenTypeEnum.VERIFY_EMAIL,
+      _userId: user._id!.toString(),
+    });
+
+    await emailService.sendMail(EmaiTypeEnum.WELCOME, user.email, {
       name: user.name,
       actionToken: token,
     });
+    console.log("EMAIL SENT");
 
     return { user, tokens };
   }
@@ -69,29 +77,16 @@ class AuthService {
 
   public async logout(
     jwtPayload: ITokenPayload,
-    refreshToken: string
+    tokenId: string
   ): Promise<void> {
-    const token = await tokenRepository.findByParams({ refreshToken });
-    if (!token) {
-      throw new ApiError("Token not found", 404);
+    const user = await userRepository.getById(jwtPayload.id);
+    if (!user) {
+      throw new ApiError("User not found", 404);
     }
-
-    await tokenRepository.deleteOneByParams({ _id: token._id });
-  }
-
-  public async refreshTokens(
-    refreshToken: string,
-    payload: ITokenPayload
-  ): Promise<ITokenPair> {
-    await tokenRepository.deleteOneByParams({ refreshToken });
-    const tokens = tokenService.generateTokenPair({
-      id: payload.id,
-      role: payload.role,
+    await tokenRepository.deleteOneByParams({ _id: tokenId });
+    await emailService.sendMail(EmaiTypeEnum.LOGOUT, user.email, {
+      name: user.name,
     });
-
-    await tokenRepository.create({ ...tokens, userId: payload.id });
-
-    return tokens;
   }
 
   private async isEmailExistOrThrow(email: string): Promise<void> {

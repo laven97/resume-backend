@@ -15,15 +15,14 @@ export const configs = {
 
   APP_FRON_URL: process.env.APP_FRON_URL,
 
-
   SMTP_HOST: process.env.SMTP_HOST,
   SMTP_PORT: process.env.SMTP_PORT,
-  SMPT_PASSWORD: process.env.SMPT_PASSWORD,
+  SMTP_PASSWORD: process.env.SMTP_PASSWORD,
   SMTP_FROM: process.env.SMTP_FROM,
   SMTP_USER: process.env.SMTP_USER,
 
   ACTION_FORGOT_PASSWORD_SECRET: process.env
-    .ACTION_FORGOT_PASSWORD_SECRET as StringValue ,
+    .ACTION_FORGOT_PASSWORD_SECRET as StringValue,
   ACTION_FORGOT_PASSWORD_EXPIRESIN: process.env
     .ACTION_FORGOT_PASSWORD_EXPIRESIN as StringValue,
   ACTION_VERIFY_EMAIL_SECRET: process.env

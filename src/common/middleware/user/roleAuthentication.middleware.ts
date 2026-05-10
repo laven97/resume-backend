@@ -3,9 +3,10 @@ import { NextFunction, Request, Response } from "express";
 import { Permissions } from "../../../modules/user/types/permision.type";
 import { ApiError } from "../../errors/api-error";
 
-import { ITokenPayload } from "../../../modules/auth/interface/token.interface";
+
 import { rolePermissions } from "../../../modules/user/prermission/role-permission";
 import { UserRole } from "../../../modules/user/enum/user.enum";
+import { ITokenPayload } from "../../../modules/auth/interface/token/token.interface";
 
 interface RequestWithUser extends Request {
   user?: ITokenPayload;

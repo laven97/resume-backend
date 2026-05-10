@@ -1,4 +1,5 @@
-import { IToken } from "../interface/token.interface";
+
+import { IToken } from "../interface/token/token.interface";
 import { Token } from "../model/token.model";
 
 class TokenRepository {

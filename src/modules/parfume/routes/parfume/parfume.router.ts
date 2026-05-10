@@ -4,7 +4,8 @@ import { authMiddleware } from "../../../../common/middleware/auth/auth.middlewa
 import { checkAccess } from "../../../../common/middleware/user/roleAuthentication.middleware";
 import { ParfumeValidation } from "../../validation/parfume.validation";
 import { parfumeController } from "../../controller/parfume.controllers";
-import { verifyId } from "../../../../common/middleware/common/verify-id.middleware";
+import { commonMiddleware } from "../../../../common/middleware/common/common.middleware";
+
 
 const router = Router();
 
@@ -20,7 +21,7 @@ router.put(
   "/update:parfumeId",
   authMiddleware.checkAccessToken,
   checkAccess("parfume:update"),
-  verifyId.verifyId,
+  commonMiddleware.verifyId,
   celebrate(ParfumeValidation.updateParfume),
   parfumeController.updateParfumeById
 );
@@ -29,7 +30,7 @@ router.get(
   "/parfume:parfumeId",
   authMiddleware.checkAccessToken,
   checkAccess("parfume:read"),
-  verifyId.verifyId,
+  commonMiddleware.verifyId,
   parfumeController.getParfumeById
 );
 
@@ -44,7 +45,7 @@ router.delete(
   "/delete:parfumeId",
   authMiddleware.checkAccessToken,
   checkAccess("parfume:delete"),
-  verifyId.verifyId,
+  commonMiddleware.verifyId,
   parfumeController.deleteById
 );
 

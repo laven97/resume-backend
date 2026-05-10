@@ -1,9 +1,9 @@
 import { Response, Request, NextFunction } from "express";
 
-import { IUser, SignInType } from "../../user/interface/user.interface";
-
-import { ITokenPayload } from "../interface/token.interface";
-import { authService } from "../service/auth/auth.service";
+import { IUser, SignInType } from "../../../user/interface/user.interface";
+import { authService } from "../../service/auth/auth.service";
+import { ITokenPayload } from "../../interface/token/token.interface";
+import { tokenService } from "../../service/auth/token.service";
 
 class AuthController {
   public async signUp(req: Request, res: Response, next: NextFunction) {
@@ -43,7 +43,7 @@ class AuthController {
       const tokens = res.locals.tokenId as string;
       const jwtPayload = res.locals.jwtPayload as ITokenPayload;
 
-      const result = await authService.refreshTokens(tokens, jwtPayload);
+      const result = await tokenService.refreshTokens(tokens, jwtPayload);
       res.status(201).json(result);
     } catch (err) {
       next(err);

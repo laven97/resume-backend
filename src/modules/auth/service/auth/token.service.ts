@@ -1,10 +1,14 @@
 import jwt, { SignOptions } from "jsonwebtoken";
-import { ITokenPair, ITokenPayload } from "../../interface/token.interface";
+
 import { configs } from "../../../../configs/configs";
 import { TokenTypeEnum } from "../../enums/token-type.enum";
 import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum";
 import { ApiError } from "../../../../common/errors/api-error";
-
+import { tokenRepository } from "../../repository/token.repository";
+import {
+  ITokenPair,
+  ITokenPayload,
+} from "../../interface/token/token.interface";
 
 class TokenService {
   public generateAccessToken(payload: ITokenPayload): string {
@@ -81,6 +85,21 @@ class TokenService {
         throw new ApiError("Invalid token type", 400);
     }
     return jwt.sign(payload, secret, { expiresIn });
+  }
+
+  public async refreshTokens(
+    refreshToken: string,
+    payload: ITokenPayload
+  ): Promise<ITokenPair> {
+    await tokenRepository.deleteOneByParams({ refreshToken });
+    const tokens = tokenService.generateTokenPair({
+      id: payload.id,
+      role: payload.role,
+    });
+
+    await tokenRepository.create({ ...tokens, userId: payload.id });
+
+    return tokens;
   }
 }
 

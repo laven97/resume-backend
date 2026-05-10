@@ -1,11 +1,11 @@
 import { EmaiTypeEnum } from "../enums/email-type.enum";
 
 export const emailConstant = {
-  [EmaiTypeEnum.WElCOME]: {
+  [EmaiTypeEnum.WELCOME]: {
     subject: "welcome",
     template: "welcome",
   },
-  [EmaiTypeEnum.FROGOT_PASSWORD]: {
+  [EmaiTypeEnum.FORGOT_PASSWORD]: {
     subject: "forgot-password",
     template: "forgot-password",
   },

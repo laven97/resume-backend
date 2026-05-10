@@ -1,5 +1,6 @@
 import { ApiError } from "../../../../common/errors/api-error";
-import { ITokenPayload } from "../../../auth/interface/token.interface";
+import { ITokenPayload } from "../../../auth/interface/token/token.interface";
+
 import { IUser } from "../../interface/user.interface";
 import { userRepository } from "../../repository/user.repository";
 
