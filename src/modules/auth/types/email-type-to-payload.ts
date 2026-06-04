@@ -16,4 +16,9 @@ export type EmailTypeToPayload = {
   [EmaiTypeEnum.OLD_WISIT]: PickRequired<EmailPayloadCombine, "name">;
 
   [EmaiTypeEnum.LOGOUT]: PickRequired<EmailPayloadCombine, "name">;
+
+  [EmaiTypeEnum.CHANGE_EMAIL]: PickRequired<
+    EmailPayloadCombine,
+    "email" | "name" | "actionToken"
+  >;
 };

@@ -1,4 +1,4 @@
-
+import { FilterQuery } from "mongoose";
 import { ApiError } from "../../../common/errors/api-error";
 import { IUser } from "../interface/user.interface";
 import { User } from "../models/user.model";
@@ -10,6 +10,10 @@ class UserRepositiry {
 
   public async getById(id: string): Promise<IUser | null> {
     return await User.findById(id).select("+password");
+  }
+
+  public async findOne(params: FilterQuery<IUser>): Promise<IUser | null> {
+    return await User.findOne(params).select("+password");
   }
 
   public async getByEmail(email: string): Promise<IUser | null> {

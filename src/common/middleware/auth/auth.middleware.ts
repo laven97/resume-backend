@@ -1,13 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 
 import { ApiError } from "../../errors/api-error";
-
 import { TokenTypeEnum } from "../../../modules/auth/enums/token-type.enum";
-
-import { tokenService } from "../../../modules/auth/service/auth/token.service";
 import { ITokenPayload } from "../../../modules/auth/interface/token/token.interface";
 import { ActionTokenTypeEnum } from "../../../modules/auth/enums/action-token-type.enum";
-import { actionTokenRepository } from "../../../modules/auth/repository/actionToken.repository";
+import { actionTokenRepository } from "../../../modules/auth/repository/token/actionToken.repository";
+import { tokenService } from "../../../modules/auth/service/token/token.service";
 
 interface RequestWithUser extends Request {
   user?: ITokenPayload;
@@ -45,7 +43,7 @@ class AuthMiddleware {
     }
   }
 
-  public async checkActionToken(type: ActionTokenTypeEnum) {
+  public checkActionToken(type: ActionTokenTypeEnum) {
     return async (req: RequestWithUser, res: Response, next: NextFunction) => {
       try {
         const token = req.body.token as string;

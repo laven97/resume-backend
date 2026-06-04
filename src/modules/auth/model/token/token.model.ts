@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
-import { IToken } from "../interface/token/token.interface";
+import { IToken } from "../../interface/token/token.interface";
+
 
 
 

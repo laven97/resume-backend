@@ -1,6 +1,6 @@
+import { IToken } from "../../interface/token/token.interface";
+import { Token } from "../../model/token/token.model";
 
-import { IToken } from "../interface/token/token.interface";
-import { Token } from "../model/token.model";
 
 class TokenRepository {
   public async create(dto: IToken): Promise<IToken> {

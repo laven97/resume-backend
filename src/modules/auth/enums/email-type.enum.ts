@@ -3,4 +3,5 @@ export enum EmaiTypeEnum {
   FORGOT_PASSWORD = "forgot-password",
   OLD_WISIT = "old-visit",
   LOGOUT = "logout",
+  CHANGE_EMAIL = "change-email",
 }

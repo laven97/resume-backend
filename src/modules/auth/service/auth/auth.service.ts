@@ -4,12 +4,14 @@ import { userRepository } from "../../../user/repository/user.repository";
 import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum";
 import { EmaiTypeEnum } from "../../enums/email-type.enum";
 import { ITokenPair, ITokenPayload } from "../../interface/token/token.interface";
+import { actionTokenRepository } from "../../repository/token/actionToken.repository";
+import { tokenRepository } from "../../repository/token/token.repository";
 
-import { actionTokenRepository } from "../../repository/actionToken.repository";
-import { tokenRepository } from "../../repository/token.repository";
+
 import { emailService } from "../email/email.service";
 import { passwordService } from "../password/password.service";
-import { tokenService } from "./token.service";
+import { tokenService } from "../token/token.service";
+
 
 class AuthService {
   public async signUp(

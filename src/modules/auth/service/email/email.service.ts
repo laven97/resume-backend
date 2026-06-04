@@ -2,7 +2,6 @@ import nodemailer, { Transporter } from "nodemailer";
 import path from "path";
 import hbs from "nodemailer-express-handlebars";
 import { configs } from "../../../../configs/configs";
-import { EmaiTypeEnum } from "../../enums/email-type.enum";
 import { EmailTypeToPayload } from "../../types/email-type-to-payload";
 import { emailConstant } from "../../constant/email.constant";
 
@@ -55,7 +54,7 @@ class EmailService {
     this.transporter.use("compile", hbs(hbsOption));
   }
 
-  public async sendMail<T extends EmaiTypeEnum>(
+  public async sendMail<T extends keyof typeof emailConstant>(
     type: T,
     to: string,
     context: EmailTypeToPayload[T]

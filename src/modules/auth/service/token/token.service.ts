@@ -4,11 +4,12 @@ import { configs } from "../../../../configs/configs";
 import { TokenTypeEnum } from "../../enums/token-type.enum";
 import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum";
 import { ApiError } from "../../../../common/errors/api-error";
-import { tokenRepository } from "../../repository/token.repository";
+
 import {
   ITokenPair,
   ITokenPayload,
 } from "../../interface/token/token.interface";
+import { tokenRepository } from "../../repository/token/token.repository";
 
 class TokenService {
   public generateAccessToken(payload: ITokenPayload): string {

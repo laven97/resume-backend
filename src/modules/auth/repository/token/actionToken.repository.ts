@@ -1,5 +1,6 @@
-import { IActionToken } from "../interface/token/actionTokne.interface";
-import { ActionToken } from "../model/actionToken.model";
+import { IActionToken } from "../../interface/token/actionTokne.interface";
+import { ActionToken } from "../../model/token/actionToken.model";
+
 
 class ActionTokenRepository {
   public async create(dto: Partial<IActionToken>): Promise<IActionToken> {
@@ -15,6 +16,7 @@ class ActionTokenRepository {
   ): Promise<void> {
     await ActionToken.deleteMany(params);
   }
+
 }
 
 export const actionTokenRepository = new ActionTokenRepository();
