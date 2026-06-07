@@ -1,7 +1,8 @@
 import { model, Schema } from "mongoose";
 
-import { UserRole } from "../enum/user.enum";
+
 import { IUser } from "../interface/user.interface";
+import { UserRole } from "../enum/userRole.enum";
 
 const userSchema = new Schema(
   {

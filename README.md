@@ -33,7 +33,7 @@ Backend API for a perfume catalog application with authentication, admin panel, 
 
 ### 🛡️ Admin
 
-* Protected admin routes
+* Protected admin routes✅
 * Manage users (optional)
 * Full control over perfume catalog
 * Upload and manage photos НА КОНЕЦ

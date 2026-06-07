@@ -1,5 +1,4 @@
-import { UserRole } from "../enum/user.enum";
-
+import { UserRole } from "../enum/userRole.enum";
 
 export interface IUser {
   _id?: string;
@@ -11,17 +10,8 @@ export interface IUser {
   isDeleted: boolean;
   phone?: string;
   avatar?: string;
+  createdAt: Date;
+  deletedAt?: Date;
 }
 
 export type SignInType = Pick<IUser, "email" | "password">;
-
-export type IUserResponse = Pick<
-  IUser,
-  "_id" | "name" | "email" | "role" | "avatar" | "isDeleted" | "isVerified"
->;
-
-export interface IUserListQuery {
-  limit?: number;
-  page?: number;
-  search?: string;
-}

@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { isObjectIdOrHexString } from "mongoose";
+import { ObjectSchema } from "joi";
 
 import { ApiError } from "../../errors/api-error";
-import { ObjectSchema } from "joi";
+
 
 class CommonMiddleware {
   public verifyId(key: string) {
