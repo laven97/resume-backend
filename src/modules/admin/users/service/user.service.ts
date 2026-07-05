@@ -6,11 +6,10 @@ class UserService {
   public async getUsersList(query: IUserListQuery): Promise<IUserListResponse> {
     const [entities, total] = await userRepository.getAllUsers(query);
 
-    const listDto = userPresenter.toListResDto(entities, total, query);
     return {
-      users: listDto.data,
-      total: listDto.total,
-    };
+        users:entities.map(userPresenter.toPublicResDto),
+        total,
+    }
   }
 }
 

@@ -3,7 +3,6 @@ import { IUser } from "../../../user/interface/user.interface";
 import { OrderEnum } from "../enum/user.enum";
 import { UserOrderListByEnum } from "../enum/userListOrderBy.enum";
 
-
 export interface IUserListQuery {
   limit?: number;
   page?: number;

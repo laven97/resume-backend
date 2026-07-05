@@ -1,9 +1,10 @@
-import { IUserListQuery, IUserListResponse } from "../../admin/users/interface/user.interface";
-import { IUser} from "../interface/user.interface";
-
+import {
+  UserResponse,
+} from "../../admin/users/interface/user.interface";
+import { IUser } from "../interface/user.interface";
 
 class UserPresenter {
-  private toPublicUser(entity: IUser) {
+  public toPublicResDto(entity: IUser): UserResponse {
     return {
       _id: entity._id,
       name: entity.name,
@@ -12,23 +13,7 @@ class UserPresenter {
       avatar: entity.avatar,
       isDeleted: entity.isDeleted,
       isVerified: entity.isVerified,
-      createdAt: entity.createdAt
-    };
-  }
-
-  public toPublicResDto(entities: IUser[],total:number,query:IUserListQuery): IUserListResponse {
-    return {
-      users: entities.map((entity) => this.toPublicUser(entity)),
-      total,
-      ...query
-    }
-  }
-
-  public toListResDto(entities: IUser[], total: number, query: IUserListQuery) {
-    return {
-      data: entities.map((entity) => this.toPublicUser(entity)),
-      total,
-      ...query,
+      createdAt: entity.createdAt,
     };
   }
 }
