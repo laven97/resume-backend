@@ -22,6 +22,24 @@ class CartController {
       next(err);
     }
   }
+
+  public async increaseCartItemQuantity(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const { parfumeId } = req.params;
+      const { quantity } = req.body;
+      const result = await cartService.increaseCartItemQuantity(
+        parfumeId,
+        quantity,
+      );
+      res.status(200).json(result);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 export const cartController = new CartController();

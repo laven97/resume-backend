@@ -1,6 +1,6 @@
 import { ApiError } from '../../../../common/errors/api-error';
 import { IParfume } from '../../../parfume/interface/parfume.interface';
-import { ICartParfume } from '../../interface/cart/cart.interface';
+import { ICart, ICartParfume } from '../../interface/cart/cart.interface';
 import { cartRepository } from '../../repository/cart/cart.repository';
 
 class CartService {
@@ -11,13 +11,27 @@ class CartService {
   public async addToCart(
     cartItem: IParfume,
     cartItemId: string,
-  ): Promise<ICartParfume> {
+  ): Promise<ICart> {
     const cartItemById = await cartRepository.getCartItemById(cartItemId);
     if (cartItemById) {
       throw new ApiError('Item already in cart', 400);
     }
 
     return await cartRepository.addToCart(cartItem);
+  }
+
+  public async increaseCartItemQuantity(
+    cartItemId: string,
+    quentity: number,
+  ): Promise<ICart | null> {
+    const cartItem = await cartRepository.increaseCartItemQuantity(
+      cartItemId,
+      quentity,
+    );
+    if (!cartItem) {
+      throw new ApiError('Cart item not found', 404);
+    }
+    return cartItem;
   }
 }
 
