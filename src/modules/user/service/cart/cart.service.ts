@@ -33,6 +33,14 @@ class CartService {
     }
     return cartItem;
   }
+
+  public async removeCartItem(itemId: string): Promise<void> {
+    return await cartRepository.removeCartItem(itemId);
+  }
+
+  public async clearCart(): Promise<void> {
+    return await cartRepository.clearCart();
+  }
 }
 
 export const cartService = new CartService();

@@ -40,6 +40,25 @@ class CartController {
       next(err);
     }
   }
+
+  public async removeCartItem(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { itemId } = req.params;
+      await cartService.removeCartItem(itemId);
+      res.sendStatus(204);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  public async clearCart(req: Request, res: Response, next: NextFunction) {
+    try {
+      await cartService.clearCart();
+      res.sendStatus(204);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 export const cartController = new CartController();

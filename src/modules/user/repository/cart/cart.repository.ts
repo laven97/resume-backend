@@ -29,6 +29,14 @@ class CartRepository {
 
     return await cartItem.save();
   }
+
+  public async removeCartItem(itemId: string): Promise<void> {
+    await Cart.findByIdAndDelete(itemId);
+  }
+
+  public async clearCart(): Promise<void> {
+    await Cart.deleteMany();
+  }
 }
 
 export const cartRepository = new CartRepository();
