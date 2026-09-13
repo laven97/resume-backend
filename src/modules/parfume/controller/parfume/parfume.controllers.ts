@@ -1,7 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-
-import { IParfume } from "../interface/parfume.interface";
-import { parfumeService } from "../service/parfume.service";
+import { NextFunction, Request, Response } from 'express';
+import { IParfume } from '../../interface/parfume.interface';
+import { parfumeService } from '../../service/parfume/parfume.service';
 
 class ParfumeController {
   public async createParfume(req: Request, res: Response, next: NextFunction) {
@@ -17,7 +16,7 @@ class ParfumeController {
   public async updateParfumeById(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { parfumeId } = req.params;

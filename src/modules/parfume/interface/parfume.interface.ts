@@ -10,4 +10,10 @@ export interface IParfume {
   baseNotes?: string;
   price?: number;
   stock: boolean;
+  photo: string;
 }
+
+export type ICartParfume = Pick<
+  IParfume,
+  'id' | 'name' | 'title' | 'price' | 'photo'
+>;

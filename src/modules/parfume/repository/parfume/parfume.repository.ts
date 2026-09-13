@@ -1,6 +1,7 @@
-import { ApiError } from "../../../common/errors/api-error";
-import { IParfume } from "../interface/parfume.interface";
-import { Parfume } from "../model/parfume.model";
+import { ApiError } from '../../../../common/errors/api-error';
+import { IParfume } from '../../interface/parfume.interface';
+import { Parfume } from '../../model/parfume/parfume.model';
+
 
 class ParfumeRepository {
   public async createParfume(dto: IParfume): Promise<IParfume> {
@@ -9,19 +10,19 @@ class ParfumeRepository {
 
   public async updateById(
     parfumeId: string,
-    dto: Partial<IParfume>
+    dto: Partial<IParfume>,
   ): Promise<IParfume> {
     const parfume = await Parfume.findByIdAndUpdate(parfumeId, dto, {
       new: true,
     });
     if (!parfume) {
-      throw new ApiError("Parfume not found ", 404);
+      throw new ApiError('Parfume not found ', 404);
     }
     return parfume;
   }
 
-  public async getParfumeList():Promise<IParfume[]>{
-    return await Parfume.find()
+  public async getParfumeList(): Promise<IParfume[]> {
+    return await Parfume.find();
   }
 
   public async getParfumeById(parfumeId: string): Promise<IParfume | null> {

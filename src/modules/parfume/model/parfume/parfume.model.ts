@@ -1,6 +1,5 @@
-import { model, Schema } from "mongoose";
-
-import { IParfume } from "../interface/parfume.interface";
+import { model, Schema } from 'mongoose';
+import { IParfume } from '../../interface/parfume.interface';
 
 const parfumeSchema = new Schema({
   id: { type: String, requered: true },
@@ -16,4 +15,4 @@ const parfumeSchema = new Schema({
   price: { type: Number, required: true },
 });
 
-export const Parfume = model<IParfume>("parfume", parfumeSchema);
+export const Parfume = model<IParfume>('parfume', parfumeSchema);

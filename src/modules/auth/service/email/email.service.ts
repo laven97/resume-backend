@@ -17,8 +17,6 @@ class EmailService {
       },
     });
 
-    console.log("SMTP_USER:", configs.SMTP_USER);
-    console.log("SMTP_PASSWORD:", configs.SMTP_PASSWORD);
 
     const hbsOption = {
       viewEngine: {
