@@ -1,8 +1,7 @@
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
-
-import { IUser } from "../interface/user.interface";
-import { UserRole } from "../enum/userRole.enum";
+import { UserRole } from '../../enum/userRole.enum';
+import { IUser } from '../../interface/user/user.interface';
 
 const userSchema = new Schema(
   {
@@ -23,7 +22,7 @@ const userSchema = new Schema(
   {
     timestamps: true,
     versionKey: false,
-  }
+  },
 );
 
-export const User = model<IUser>("user", userSchema);
+export const User = model<IUser>('user', userSchema);

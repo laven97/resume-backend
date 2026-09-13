@@ -1,12 +1,14 @@
 import { celebrate } from 'celebrate';
 import { Router } from 'express';
 
-import { authMiddleware } from '../../../../common/middleware/auth/auth.middleware';
-import { checkAccess } from '../../../../common/middleware/user/roleAuthentication.middleware';
-import { ParfumeValidation } from '../../validation/parfume.validation';
-import { commonMiddleware } from '../../../../common/middleware/common/common.middleware';
-import { Permissions } from '../../../user/types/permision.type';
-import { parfumeController } from '../../controller/parfume/parfume.controllers';
+import { authMiddleware } from '../../../common/middleware/auth/auth.middleware';
+import { checkAccess } from '../../../common/middleware/user/roleAuthentication.middleware';
+import { ParfumeValidation } from '../validation/parfume.validation';
+import { parfumeController } from '../controller/parfume.controllers';
+import { commonMiddleware } from '../../../common/middleware/common/common.middleware';
+import { Permissions } from '../../user/types/permision.type';
+
+
 
 const router = Router();
 

@@ -1,4 +1,4 @@
-import { ICartParfume } from '../../interface/parfume.interface';
+import { ICartParfume } from '../../interface/cart/cart.interface';
 import { cartRepository } from '../../repository/cart/cart.repository';
 
 class CartService {

@@ -1,21 +1,23 @@
-import { ApiError } from "../../../../common/errors/api-error";
-import { IUser, SignInType } from "../../../user/interface/user.interface";
-import { userRepository } from "../../../user/repository/user.repository";
-import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum";
-import { EmaiTypeEnum } from "../../enums/email-type.enum";
-import { ITokenPair, ITokenPayload } from "../../interface/token/token.interface";
-import { actionTokenRepository } from "../../repository/token/actionToken.repository";
-import { tokenRepository } from "../../repository/token/token.repository";
+import { ApiError } from '../../../../common/errors/api-error';
+import { IUser, SignInType } from '../../../user/interface/user/user.interface';
+import { userRepository } from '../../../user/repository/user/user.repository';
 
+import { ActionTokenTypeEnum } from '../../enums/action-token-type.enum';
+import { EmaiTypeEnum } from '../../enums/email-type.enum';
+import {
+  ITokenPair,
+  ITokenPayload,
+} from '../../interface/token/token.interface';
+import { actionTokenRepository } from '../../repository/token/actionToken.repository';
+import { tokenRepository } from '../../repository/token/token.repository';
 
-import { emailService } from "../email/email.service";
-import { passwordService } from "../password/password.service";
-import { tokenService } from "../token/token.service";
-
+import { emailService } from '../email/email.service';
+import { passwordService } from '../password/password.service';
+import { tokenService } from '../token/token.service';
 
 class AuthService {
   public async signUp(
-    dto: IUser
+    dto: IUser,
   ): Promise<{ user: IUser; tokens: ITokenPair }> {
     await this.isEmailExistOrThrow(dto.email);
     const password = await passwordService.hashedPassword(dto.password);
@@ -32,7 +34,7 @@ class AuthService {
         id: user._id!.toString(),
         role: user.role,
       },
-      ActionTokenTypeEnum.VERIFY_EMAIL
+      ActionTokenTypeEnum.VERIFY_EMAIL,
     );
     await actionTokenRepository.create({
       token,
@@ -44,25 +46,25 @@ class AuthService {
       name: user.name,
       actionToken: token,
     });
-    console.log("EMAIL SENT");
+    console.log('EMAIL SENT');
 
     return { user, tokens };
   }
 
   public async signIn(
-    dto: SignInType
+    dto: SignInType,
   ): Promise<{ user: IUser; tokens: ITokenPair }> {
     const user = await userRepository.getByEmail(dto.email);
     if (!user) {
-      throw new ApiError("User not found", 404);
+      throw new ApiError('User not found', 404);
     }
 
     const isPasswordCorrect = await passwordService.comparedPassword(
       dto.password,
-      user.password
+      user.password,
     );
     if (!isPasswordCorrect) {
-      throw new ApiError("Invalid credentials", 401);
+      throw new ApiError('Invalid credentials', 401);
     }
 
     const { refreshToken, accessToken } = await tokenService.generateTokenPair({
@@ -79,11 +81,11 @@ class AuthService {
 
   public async logout(
     jwtPayload: ITokenPayload,
-    tokenId: string
+    tokenId: string,
   ): Promise<void> {
     const user = await userRepository.getById(jwtPayload.id);
     if (!user) {
-      throw new ApiError("User not found", 404);
+      throw new ApiError('User not found', 404);
     }
     await tokenRepository.deleteOneByParams({ _id: tokenId });
     await emailService.sendMail(EmaiTypeEnum.LOGOUT, user.email, {
@@ -94,7 +96,7 @@ class AuthService {
   private async isEmailExistOrThrow(email: string): Promise<void> {
     const user = await userRepository.getByEmail(email);
     if (user) {
-      throw new ApiError("Email is already exist", 409);
+      throw new ApiError('Email is already exist', 409);
     }
   }
 }

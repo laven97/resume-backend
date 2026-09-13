@@ -1,7 +1,8 @@
-import { FilterQuery } from "mongoose";
-import { ApiError } from "../../../common/errors/api-error";
-import { IUser } from "../interface/user.interface";
-import { User } from "../models/user.model";
+import { FilterQuery } from 'mongoose';
+
+import { IUser } from '../../interface/user/user.interface';
+import { User } from '../../models/user/user.model';
+import { ApiError } from '../../../../common/errors/api-error';
 
 class UserRepositiry {
   public async createUser(dto: IUser): Promise<IUser> {
@@ -9,21 +10,21 @@ class UserRepositiry {
   }
 
   public async getById(id: string): Promise<IUser | null> {
-    return await User.findById(id).select("+password");
+    return await User.findById(id).select('+password');
   }
 
   public async findOne(params: FilterQuery<IUser>): Promise<IUser | null> {
-    return await User.findOne(params).select("+password");
+    return await User.findOne(params).select('+password');
   }
 
   public async getByEmail(email: string): Promise<IUser | null> {
-    return await User.findOne({ email }).select("+password");
+    return await User.findOne({ email }).select('+password');
   }
 
   public async updateById(userId: string, dto: Partial<IUser>): Promise<IUser> {
     const user = await User.findByIdAndUpdate(userId, dto, { new: true });
     if (!user) {
-      throw new ApiError("User not found", 404);
+      throw new ApiError('User not found', 404);
     }
     return user;
   }

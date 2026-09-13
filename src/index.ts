@@ -2,13 +2,15 @@ import express from 'express';
 
 import { configs } from './configs/configs';
 
-import { userRouter } from './modules/user/routes/user.router';
 import { connectMongoDB } from './db/mongoDB';
-import { parfumeRouter } from './modules/parfume/routes/parfume/parfume.router';
+
 import { authRouter } from './modules/auth/routes/auth/auth.router';
 import { passwordRouter } from './modules/auth/routes/password/password.router';
 import { emailRouter } from './modules/auth/routes/email/email.router';
-import { cartRouter } from './modules/parfume/routes/cart/cart.router';
+import { parfumeRouter } from './modules/parfume/routes/parfume.router';
+import { userRouter } from './modules/user/routes/user/user.router';
+import { cartRouter } from './modules/user/routes/cart/cart.router';
+
 // import { adminUserRouter } from "./modules/admin/users/routes/adminUser.router";
 
 const app = express();

@@ -1,5 +1,6 @@
 import { model, Schema } from 'mongoose';
-import { ICartParfume } from '../../interface/parfume.interface';
+
+import { ICartParfume } from '../../interface/cart/cart.interface';
 
 const CartSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },

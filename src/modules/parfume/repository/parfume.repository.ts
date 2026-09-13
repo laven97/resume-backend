@@ -1,6 +1,7 @@
-import { ApiError } from '../../../../common/errors/api-error';
-import { IParfume } from '../../interface/parfume.interface';
-import { Parfume } from '../../model/parfume/parfume.model';
+import { ApiError } from "../../../common/errors/api-error";
+import { IParfume } from "../interface/parfume.interface";
+import { Parfume } from "../model/parfume.model";
+
 
 
 class ParfumeRepository {

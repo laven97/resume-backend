@@ -1,7 +1,8 @@
 import {
   UserResponse,
 } from "../../admin/users/interface/user.interface";
-import { IUser } from "../interface/user.interface";
+import { IUser } from "../interface/user/user.interface";
+
 
 class UserPresenter {
   public toPublicResDto(entity: IUser): UserResponse {

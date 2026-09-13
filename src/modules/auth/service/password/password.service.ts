@@ -5,7 +5,7 @@ import {
   IResetPasswordSendEmail,
   IResetPasswordSet,
 } from "../../interface/password/password.interface";
-import { userRepository } from "../../../user/repository/user.repository";
+
 import { ApiError } from "../../../../common/errors/api-error";
 import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum";
 import { emailService } from "../email/email.service";
@@ -15,6 +15,7 @@ import { actionTokenRepository } from "../../repository/token/actionToken.reposi
 import { tokenRepository } from "../../repository/token/token.repository";
 import { oldTokenRepository } from "../../repository/password/old-password.repository";
 import { tokenService } from "../token/token.service";
+import { userRepository } from "../../../user/repository/user/user.repository";
 
 class PasswordService {
   async hashedPassword(password: string): Promise<string> {

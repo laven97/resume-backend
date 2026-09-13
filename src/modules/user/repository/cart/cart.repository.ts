@@ -1,7 +1,5 @@
-import { ICartParfume } from '../../interface/parfume.interface';
-import { Cart } from '../../model/cart/cart.model';
-
-
+import { ICartParfume } from '../../interface/cart/cart.interface';
+import { Cart } from '../../models/cart/cart.model';
 
 class CartRepository {
   public async getCart(): Promise<ICartParfume[]> {
