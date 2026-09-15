@@ -1,6 +1,6 @@
-import { Joi, Segments } from "celebrate";
+import { Joi, Segments } from 'celebrate';
 
-import { regexConstant } from "../constant/regex.constant.js";
+import { regexConstant } from '../constant/regex.constant.js';
 
 export class AuthValidation {
   private static email = Joi.string()
@@ -32,4 +32,9 @@ export class AuthValidation {
       refreshToken: Joi.string().required(),
     }),
   };
+
+  public static changePassword = Joi.object({
+    OldPassword: this.password.required(),
+    password: this.password.required(),
+  });
 }

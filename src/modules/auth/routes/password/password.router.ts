@@ -1,30 +1,35 @@
-import { Router } from "express";
-import { passwordController } from "../../controller/password/password.controller.js";
-import { authMiddleware } from "../../../../common/middleware/auth/auth.middleware.js";
-import { commonMiddleware } from "../../../../common/middleware/common/common.middleware.js";
-import { UserValidation } from "../../../user/validation/user.validation.js";
-import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum.js";
+import { Router } from 'express';
+
+import { passwordController } from '../../controller/password/password.controller.js';
+import { authMiddleware } from '../../../../common/middleware/auth/auth.middleware.js';
+import { commonMiddleware } from '../../../../common/middleware/common/common.middleware.js';
+import { ActionTokenTypeEnum } from '../../enums/action-token-type.enum.js';
+import { AuthValidation } from '../../validation/auth.validator.js';
+import { celebrate } from 'celebrate';
 
 const router = Router();
 
-router.post("/forgot-password", passwordController.forgotPasswordSendEmail);
+router.post('/forgot-password', passwordController.forgotPasswordSendEmail);
 router.put(
-  "/forgot-password",
+  '/forgot-password',
   authMiddleware.checkAccessToken,
   authMiddleware.checkActionToken,
-  passwordController.forgotPasswordReset
+  passwordController.forgotPasswordReset,
 );
 router.put(
-  "/change-password",
+  '/change-password',
+  celebrate({
+    body: AuthValidation.changePassword,
+  }),
   authMiddleware.checkAccessToken,
-  commonMiddleware.isBodyValid(UserValidation.changePassword),
-  passwordController.changePassword
+  commonMiddleware.isBodyValid(AuthValidation.changePassword),
+  passwordController.changePassword,
 );
 
 router.post(
-  "/verify",
+  '/verify',
   authMiddleware.checkActionToken(ActionTokenTypeEnum.VERIFY_EMAIL),
-  passwordController.verify
+  passwordController.verify,
 );
 
 export const passwordRouter = router;

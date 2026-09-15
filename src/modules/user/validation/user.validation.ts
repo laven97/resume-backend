@@ -25,8 +25,4 @@ export class UserValidation {
     phone: this.phone,
   });
 
-  public static changePassword = Joi.object({
-    OldPassword: this.password.required(),
-    password: this.password.required(),
-  });
 }

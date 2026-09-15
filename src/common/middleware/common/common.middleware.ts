@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { isObjectIdOrHexString } from 'mongoose';
-import { ObjectSchema, ValidationError } from 'joi';
+import Joi from 'joi';
+import type { ObjectSchema } from 'joi';
 
 import { ApiError } from '../../errors/api-error.js';
 
@@ -26,7 +27,7 @@ class CommonMiddleware {
         req.body = await validator.validateAsync(req.body);
         next();
       } catch (err) {
-        if (err instanceof ValidationError) {
+        if (Joi.isError(err)) {
           next(new ApiError(err.details[0].message, 400));
           return;
         }
