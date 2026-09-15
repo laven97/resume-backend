@@ -1,31 +1,28 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.cartService = void 0;
-const api_error_1 = require("../../../../common/errors/api-error");
-const cart_repository_1 = require("../../repository/cart/cart.repository");
+import { ApiError } from '../../../../common/errors/api-error.js';
+import { cartRepository } from '../../repository/cart/cart.repository.js';
 class CartService {
     async getCart() {
-        return await cart_repository_1.cartRepository.getCart();
+        return await cartRepository.getCart();
     }
     async addToCart(cartItem, cartItemId) {
-        const cartItemById = await cart_repository_1.cartRepository.getCartItemById(cartItemId);
+        const cartItemById = await cartRepository.getCartItemById(cartItemId);
         if (cartItemById) {
-            throw new api_error_1.ApiError('Item already in cart', 400);
+            throw new ApiError('Item already in cart', 400);
         }
-        return await cart_repository_1.cartRepository.addToCart(cartItem);
+        return await cartRepository.addToCart(cartItem);
     }
     async increaseCartItemQuantity(cartItemId, quentity) {
-        const cartItem = await cart_repository_1.cartRepository.increaseCartItemQuantity(cartItemId, quentity);
+        const cartItem = await cartRepository.increaseCartItemQuantity(cartItemId, quentity);
         if (!cartItem) {
-            throw new api_error_1.ApiError('Cart item not found', 404);
+            throw new ApiError('Cart item not found', 404);
         }
         return cartItem;
     }
     async removeCartItem(itemId) {
-        return await cart_repository_1.cartRepository.removeCartItem(itemId);
+        return await cartRepository.removeCartItem(itemId);
     }
     async clearCart() {
-        return await cart_repository_1.cartRepository.clearCart();
+        return await cartRepository.clearCart();
     }
 }
-exports.cartService = new CartService();
+export const cartService = new CartService();

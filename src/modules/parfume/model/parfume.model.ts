@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 
-import { IParfume } from '../interface/parfume.interface';
+import { IParfume } from '../interface/parfume.interface.js';
 
 const parfumeSchema = new Schema({
   id: { type: String, requered: true },

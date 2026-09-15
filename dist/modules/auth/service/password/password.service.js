@@ -1,41 +1,35 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.passwordService = void 0;
-const bcrypt_1 = __importDefault(require("bcrypt"));
-const api_error_1 = require("../../../../common/errors/api-error");
-const action_token_type_enum_1 = require("../../enums/action-token-type.enum");
-const email_service_1 = require("../email/email.service");
-const email_type_enum_1 = require("../../enums/email-type.enum");
-const actionToken_repository_1 = require("../../repository/token/actionToken.repository");
-const token_repository_1 = require("../../repository/token/token.repository");
-const old_password_repository_1 = require("../../repository/password/old-password.repository");
-const token_service_1 = require("../token/token.service");
-const user_repository_1 = require("../../../user/repository/user/user.repository");
+import bcrypt from "bcrypt";
+import { ApiError } from "../../../../common/errors/api-error.js";
+import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum.js";
+import { emailService } from "../email/email.service.js";
+import { EmaiTypeEnum } from "../../enums/email-type.enum.js";
+import { actionTokenRepository } from "../../repository/token/actionToken.repository.js";
+import { tokenRepository } from "../../repository/token/token.repository.js";
+import { oldTokenRepository } from "../../repository/password/old-password.repository.js";
+import { tokenService } from "../token/token.service.js";
+import { userRepository } from "../../../user/repository/user/user.repository.js";
 class PasswordService {
     async hashedPassword(password) {
-        return await bcrypt_1.default.hash(password, 10);
+        return await bcrypt.hash(password, 10);
     }
     async comparedPassword(password, hashedPassword) {
-        return await bcrypt_1.default.compare(password, hashedPassword);
+        return await bcrypt.compare(password, hashedPassword);
     }
     async forgotPasswordSendEmail(dto) {
-        const user = await user_repository_1.userRepository.getByEmail(dto.email);
+        const user = await userRepository.getByEmail(dto.email);
         if (!user) {
-            throw new api_error_1.ApiError("User not found", 404);
+            throw new ApiError("User not found", 404);
         }
-        const token = await token_service_1.tokenService.generateTokenAction({
+        const token = await tokenService.generateTokenAction({
             id: user._id.toString(),
             role: user.role,
-        }, action_token_type_enum_1.ActionTokenTypeEnum.FORGOT_PASSWORD);
-        await actionToken_repository_1.actionTokenRepository.create({
+        }, ActionTokenTypeEnum.FORGOT_PASSWORD);
+        await actionTokenRepository.create({
             token,
-            type: action_token_type_enum_1.ActionTokenTypeEnum.FORGOT_PASSWORD,
+            type: ActionTokenTypeEnum.FORGOT_PASSWORD,
             _userId: user._id.toString(),
         });
-        await email_service_1.emailService.sendMail(email_type_enum_1.EmaiTypeEnum.FORGOT_PASSWORD, user.email, {
+        await emailService.sendMail(EmaiTypeEnum.FORGOT_PASSWORD, user.email, {
             name: user.name,
             email: user.email,
             actionToken: token,
@@ -43,46 +37,46 @@ class PasswordService {
     }
     async forgotPasswordReset(dto, jwtPayload) {
         const password = await this.hashedPassword(dto.password);
-        await user_repository_1.userRepository.updateById(jwtPayload.id, { password });
-        await actionToken_repository_1.actionTokenRepository.deleteManyByParams({
+        await userRepository.updateById(jwtPayload.id, { password });
+        await actionTokenRepository.deleteManyByParams({
             _userId: jwtPayload.id,
-            type: action_token_type_enum_1.ActionTokenTypeEnum.FORGOT_PASSWORD,
+            type: ActionTokenTypeEnum.FORGOT_PASSWORD,
         });
-        await token_repository_1.tokenRepository.deleteOneByParams({ userId: jwtPayload.id });
+        await tokenRepository.deleteOneByParams({ userId: jwtPayload.id });
     }
     async changePassword(jwtPayload, dto) {
         const [user, oldPasswords] = await Promise.all([
-            user_repository_1.userRepository.getById(jwtPayload.id),
-            old_password_repository_1.oldTokenRepository.findByParams(jwtPayload.id),
+            userRepository.getById(jwtPayload.id),
+            oldTokenRepository.findByParams(jwtPayload.id),
         ]);
         if (!user) {
-            throw new api_error_1.ApiError("User not found", 404);
+            throw new ApiError("User not found", 404);
         }
         const isPasswordCorrect = await this.comparedPassword(dto.oldPassword, user.password);
         if (!isPasswordCorrect) {
-            throw new api_error_1.ApiError("Invalid credentials", 401);
+            throw new ApiError("Invalid credentials", 401);
         }
         const passwords = [...oldPasswords, { password: user.password }];
         await Promise.all(passwords.map(async (oldPasswords) => {
             const isPreviousPassword = await this.comparedPassword(dto.password, oldPasswords.password);
             if (isPreviousPassword) {
-                throw new api_error_1.ApiError("You cannot use one of your previous passwords", 400);
+                throw new ApiError("You cannot use one of your previous passwords", 400);
             }
         }));
         const password = await this.hashedPassword(dto.password);
-        await user_repository_1.userRepository.updateById(jwtPayload.id, { password });
-        await old_password_repository_1.oldTokenRepository.create({
+        await userRepository.updateById(jwtPayload.id, { password });
+        await oldTokenRepository.create({
             _userId: jwtPayload.id,
             password: user.password,
         });
-        await token_repository_1.tokenRepository.deleteOneByParams({ userId: jwtPayload.id });
+        await tokenRepository.deleteOneByParams({ userId: jwtPayload.id });
     }
     async verify(jwtPayload) {
-        await user_repository_1.userRepository.updateById(jwtPayload.id, { isVerified: true });
-        await actionToken_repository_1.actionTokenRepository.deleteManyByParams({
+        await userRepository.updateById(jwtPayload.id, { isVerified: true });
+        await actionTokenRepository.deleteManyByParams({
             _userId: jwtPayload.id,
-            type: action_token_type_enum_1.ActionTokenTypeEnum.VERIFY_EMAIL,
+            type: ActionTokenTypeEnum.VERIFY_EMAIL,
         });
     }
 }
-exports.passwordService = new PasswordService();
+export const passwordService = new PasswordService();

@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { IParfume } from '../../../parfume/interface/parfume.interface';
+import { IParfume } from '../../../parfume/interface/parfume.interface.js';
 
 export interface ICart {
   _id?: string;

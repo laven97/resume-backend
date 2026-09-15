@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.oldTokenRepository = void 0;
-const oldPassword_model_1 = require("../../model/password/oldPassword.model");
+import { OldPassword } from "../../model/password/oldPassword.model.js";
 class OldTokenRepository {
     async create(dto) {
-        return await oldPassword_model_1.OldPassword.create(dto);
+        return await OldPassword.create(dto);
     }
     async findByParams(userId) {
-        return await oldPassword_model_1.OldPassword.find({ _userId: userId });
+        return await OldPassword.find({ _userId: userId });
     }
 }
-exports.oldTokenRepository = new OldTokenRepository();
+export const oldTokenRepository = new OldTokenRepository();

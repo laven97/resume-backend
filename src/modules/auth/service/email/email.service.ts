@@ -1,9 +1,10 @@
-import nodemailer, { Transporter } from "nodemailer";
-import path from "path";
-import hbs from "nodemailer-express-handlebars";
-import { configs } from "../../../../configs/configs";
-import { EmailTypeToPayload } from "../../types/email-type-to-payload";
-import { emailConstant } from "../../constant/email.constant";
+import nodemailer, { Transporter } from 'nodemailer';
+import path from 'path';
+import hbs from 'nodemailer-express-handlebars';
+
+import { configs } from '../../../../configs/configs.js';
+import { EmailTypeToPayload } from '../../types/email-type-to-payload.js';
+import { emailConstant } from '../../constant/email.constant.js';
 
 class EmailService {
   private transporter: Transporter;
@@ -17,45 +18,44 @@ class EmailService {
       },
     });
 
-
     const hbsOption = {
       viewEngine: {
-        extname: ".hbs",
-        defaultLayout: "main",
+        extname: '.hbs',
+        defaultLayout: 'main',
         layoutsDir: path.join(
           process.cwd(),
-          "src",
-          "modules",
-          "auth",
-          "templates",
-          "layouts"
+          'src',
+          'modules',
+          'auth',
+          'templates',
+          'layouts',
         ),
         partialsDir: path.join(
           process.cwd(),
-          "src",
-          "modules",
-          "auth",
-          "templates",
-          "partials"
+          'src',
+          'modules',
+          'auth',
+          'templates',
+          'partials',
         ),
       },
       viewPath: path.join(
         process.cwd(),
-        "src",
-        "modules",
-        "auth",
-        "templates",
-        "views"
+        'src',
+        'modules',
+        'auth',
+        'templates',
+        'views',
       ),
-      extName: ".hbs",
+      extName: '.hbs',
     };
-    this.transporter.use("compile", hbs(hbsOption));
+    this.transporter.use('compile', hbs(hbsOption));
   }
 
   public async sendMail<T extends keyof typeof emailConstant>(
     type: T,
     to: string,
-    context: EmailTypeToPayload[T]
+    context: EmailTypeToPayload[T],
   ): Promise<void> {
     const { subject, template } = emailConstant[type];
 

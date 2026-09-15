@@ -1,7 +1,7 @@
-import { ApiError } from '../../../../common/errors/api-error';
-import { ITokenPayload } from '../../../auth/interface/token/token.interface';
-import { IUser } from '../../interface/user/user.interface';
-import { userRepository } from '../../repository/user/user.repository';
+import { ApiError } from '../../../../common/errors/api-error.js';
+import { ITokenPayload } from '../../../auth/interface/token/token.interface.js';
+import { IUser } from '../../interface/user/user.interface.js';
+import { userRepository } from '../../repository/user/user.repository.js';
 
 class UserService {
   public async getMe(jwtPayload: ITokenPayload): Promise<IUser> {

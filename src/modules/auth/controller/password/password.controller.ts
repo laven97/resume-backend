@@ -4,9 +4,9 @@ import {
   IChangePassword,
   IResetPasswordSendEmail,
   IResetPasswordSet,
-} from "../../interface/password/password.interface";
-import { passwordService } from "../../service/password/password.service";
-import { ITokenPayload } from "../../interface/token/token.interface";
+} from "../../interface/password/password.interface.js";
+import { passwordService } from "../../service/password/password.service.js";
+import { ITokenPayload } from "../../interface/token/token.interface.js";
 
 class PasswordContoller {
   public async forgotPasswordSendEmail(

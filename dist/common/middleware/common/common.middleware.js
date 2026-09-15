@@ -1,15 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.commonMiddleware = void 0;
-const mongoose_1 = require("mongoose");
-const api_error_1 = require("../../errors/api-error");
+import { isObjectIdOrHexString } from 'mongoose';
+import { ValidationError } from 'joi';
+import { ApiError } from '../../errors/api-error.js';
 class CommonMiddleware {
     verifyId(key) {
         return (req, res, next) => {
             try {
                 const id = req.params[key];
-                if (!(0, mongoose_1.isObjectIdOrHexString)(id)) {
-                    throw new api_error_1.ApiError("Invalid ID", 400);
+                if (!isObjectIdOrHexString(id)) {
+                    throw new ApiError('Invalid ID', 400);
                 }
                 next();
             }
@@ -25,12 +23,13 @@ class CommonMiddleware {
                 next();
             }
             catch (err) {
-                if (err && typeof err === "object" && "details" in err) {
-                    const error = err;
-                    next(new api_error_1.ApiError(error.details[0].message, 400));
+                if (err instanceof ValidationError) {
+                    next(new ApiError(err.details[0].message, 400));
+                    return;
                 }
+                next(err);
             }
         };
     }
 }
-exports.commonMiddleware = new CommonMiddleware();
+export const commonMiddleware = new CommonMiddleware();

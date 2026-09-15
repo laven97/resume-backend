@@ -1,16 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.tokenRepository = void 0;
-const token_model_1 = require("../../model/token/token.model");
+import { Token } from "../../model/token/token.model.js";
 class TokenRepository {
     async create(dto) {
-        return await token_model_1.Token.create(dto);
+        return await Token.create(dto);
     }
     async deleteOneByParams(params) {
-        await token_model_1.Token.deleteOne(params);
+        await Token.deleteOne(params);
     }
     async findByParams(params) {
-        return await token_model_1.Token.findOne(params);
+        return await Token.findOne(params);
     }
 }
-exports.tokenRepository = new TokenRepository();
+export const tokenRepository = new TokenRepository();

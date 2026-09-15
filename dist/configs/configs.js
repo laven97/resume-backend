@@ -1,12 +1,6 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.configs = void 0;
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-exports.configs = {
+import dotenv from "dotenv";
+dotenv.config();
+export const configs = {
     APP_PORT: process.env.APP_PORT || 3001,
     MONGO_URL: process.env.MONGO_URL,
     JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,

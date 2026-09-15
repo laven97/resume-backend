@@ -1,6 +1,6 @@
 import { Joi, Segments } from "celebrate";
 
-import { regexConstant } from "../constant/regex.constant";
+import { regexConstant } from "../constant/regex.constant.js";
 
 export class AuthValidation {
   private static email = Joi.string()

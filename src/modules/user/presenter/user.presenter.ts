@@ -1,7 +1,7 @@
 import {
   UserResponse,
-} from "../../admin/users/interface/user.interface";
-import { IUser } from "../interface/user/user.interface";
+} from "../../admin/users/interface/user.interface.js";
+import { IUser } from "../interface/user/user.interface.js";
 
 
 class UserPresenter {

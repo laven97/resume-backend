@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { cartService } from '../../service/cart/cart.service';
+import { cartService } from '../../service/cart/cart.service.js';
 
 class CartController {
   public async getCart(req: Request, res: Response, next: NextFunction) {

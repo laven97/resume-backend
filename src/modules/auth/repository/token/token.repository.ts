@@ -1,5 +1,5 @@
-import { IToken } from "../../interface/token/token.interface";
-import { Token } from "../../model/token/token.model";
+import { IToken } from "../../interface/token/token.interface.js";
+import { Token } from "../../model/token/token.model.js";
 
 
 class TokenRepository {

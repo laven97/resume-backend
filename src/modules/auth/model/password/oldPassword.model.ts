@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
-import { IOldPassword } from "../../interface/password/old-password.interface";
+
+import { IOldPassword } from "../../interface/password/old-password.interface.js";
 
 const OldPasswordSchema = new Schema(
   {

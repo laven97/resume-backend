@@ -4,18 +4,18 @@ import {
   IChangePassword,
   IResetPasswordSendEmail,
   IResetPasswordSet,
-} from "../../interface/password/password.interface";
+} from "../../interface/password/password.interface.js";
 
-import { ApiError } from "../../../../common/errors/api-error";
-import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum";
-import { emailService } from "../email/email.service";
-import { EmaiTypeEnum } from "../../enums/email-type.enum";
-import { ITokenPayload } from "../../interface/token/token.interface";
-import { actionTokenRepository } from "../../repository/token/actionToken.repository";
-import { tokenRepository } from "../../repository/token/token.repository";
-import { oldTokenRepository } from "../../repository/password/old-password.repository";
-import { tokenService } from "../token/token.service";
-import { userRepository } from "../../../user/repository/user/user.repository";
+import { ApiError } from "../../../../common/errors/api-error.js";
+import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum.js";
+import { emailService } from "../email/email.service.js";
+import { EmaiTypeEnum } from "../../enums/email-type.enum.js";
+import { ITokenPayload } from "../../interface/token/token.interface.js";
+import { actionTokenRepository } from "../../repository/token/actionToken.repository.js";
+import { tokenRepository } from "../../repository/token/token.repository.js";
+import { oldTokenRepository } from "../../repository/password/old-password.repository.js";
+import { tokenService } from "../token/token.service.js";
+import { userRepository } from "../../../user/repository/user/user.repository.js";
 
 class PasswordService {
   async hashedPassword(password: string): Promise<string> {

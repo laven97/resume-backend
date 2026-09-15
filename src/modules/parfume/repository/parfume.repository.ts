@@ -1,6 +1,6 @@
-import { ApiError } from "../../../common/errors/api-error";
-import { IParfume } from "../interface/parfume.interface";
-import { Parfume } from "../model/parfume.model";
+import { ApiError } from "../../../common/errors/api-error.js";
+import { IParfume } from "../interface/parfume.interface.js";
+import { Parfume } from "../model/parfume.model.js";
 
 
 

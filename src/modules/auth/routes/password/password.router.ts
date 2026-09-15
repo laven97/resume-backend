@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { passwordController } from "../../controller/password/password.controller";
-import { authMiddleware } from "../../../../common/middleware/auth/auth.middleware";
-import { commonMiddleware } from "../../../../common/middleware/common/common.middleware";
-import { UserValidation } from "../../../user/validation/user.validation";
-import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum";
+import { passwordController } from "../../controller/password/password.controller.js";
+import { authMiddleware } from "../../../../common/middleware/auth/auth.middleware.js";
+import { commonMiddleware } from "../../../../common/middleware/common/common.middleware.js";
+import { UserValidation } from "../../../user/validation/user.validation.js";
+import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum.js";
 
 const router = Router();
 

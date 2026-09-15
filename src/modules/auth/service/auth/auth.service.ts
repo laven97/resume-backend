@@ -1,19 +1,22 @@
-import { ApiError } from '../../../../common/errors/api-error';
-import { IUser, SignInType } from '../../../user/interface/user/user.interface';
-import { userRepository } from '../../../user/repository/user/user.repository';
+import { ApiError } from '../../../../common/errors/api-error.js';
+import {
+  IUser,
+  SignInType,
+} from '../../../user/interface/user/user.interface.js';
+import { userRepository } from '../../../user/repository/user/user.repository.js';
 
-import { ActionTokenTypeEnum } from '../../enums/action-token-type.enum';
-import { EmaiTypeEnum } from '../../enums/email-type.enum';
+import { ActionTokenTypeEnum } from '../../enums/action-token-type.enum.js';
+import { EmaiTypeEnum } from '../../enums/email-type.enum.js';
 import {
   ITokenPair,
   ITokenPayload,
-} from '../../interface/token/token.interface';
-import { actionTokenRepository } from '../../repository/token/actionToken.repository';
-import { tokenRepository } from '../../repository/token/token.repository';
+} from '../../interface/token/token.interface.js';
+import { actionTokenRepository } from '../../repository/token/actionToken.repository.js';
+import { tokenRepository } from '../../repository/token/token.repository.js';
 
-import { emailService } from '../email/email.service';
-import { passwordService } from '../password/password.service';
-import { tokenService } from '../token/token.service';
+import { emailService } from '../email/email.service.js';
+import { passwordService } from '../password/password.service.js';
+import { tokenService } from '../token/token.service.js';
 
 class AuthService {
   public async signUp(

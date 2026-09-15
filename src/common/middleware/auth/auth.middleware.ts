@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 
-import { ApiError } from "../../errors/api-error";
-import { TokenTypeEnum } from "../../../modules/auth/enums/token-type.enum";
-import { ITokenPayload } from "../../../modules/auth/interface/token/token.interface";
-import { ActionTokenTypeEnum } from "../../../modules/auth/enums/action-token-type.enum";
-import { actionTokenRepository } from "../../../modules/auth/repository/token/actionToken.repository";
-import { tokenService } from "../../../modules/auth/service/token/token.service";
+import { ApiError } from "../../errors/api-error.js";
+import { TokenTypeEnum } from "../../../modules/auth/enums/token-type.enum.js";
+import { ITokenPayload } from "../../../modules/auth/interface/token/token.interface.js";
+import { ActionTokenTypeEnum } from "../../../modules/auth/enums/action-token-type.enum.js";
+import { actionTokenRepository } from "../../../modules/auth/repository/token/actionToken.repository.js";
+import { tokenService } from "../../../modules/auth/service/token/token.service.js";
 
 interface RequestWithUser extends Request {
   user?: ITokenPayload;

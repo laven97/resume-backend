@@ -1,4 +1,4 @@
-import { UserRole } from "../../../user/enum/userRole.enum";
+import { UserRole } from "../../../user/enum/userRole.enum.js";
 
 export interface IToken {
   _id?: string;

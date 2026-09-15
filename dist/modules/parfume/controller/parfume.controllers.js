@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.parfumeController = void 0;
-const parfume_service_1 = require("../service/parfume.service");
+import { parfumeService } from '../service/parfume.service.js';
 class ParfumeController {
     async createParfume(req, res, next) {
         try {
             const dto = req.body;
-            const result = await parfume_service_1.parfumeService.createParfume(dto);
+            const result = await parfumeService.createParfume(dto);
             res.status(201).json(result);
         }
         catch (err) {
@@ -17,7 +14,7 @@ class ParfumeController {
         try {
             const { parfumeId } = req.params;
             const dto = req.body;
-            const result = await parfume_service_1.parfumeService.updateParfumeById(parfumeId, dto);
+            const result = await parfumeService.updateParfumeById(parfumeId, dto);
             res.status(201).json(result);
         }
         catch (err) {
@@ -27,7 +24,7 @@ class ParfumeController {
     async getParfumeById(req, res, next) {
         try {
             const { parfumeId } = req.params;
-            const result = await parfume_service_1.parfumeService.getParfumeById(parfumeId);
+            const result = await parfumeService.getParfumeById(parfumeId);
             res.status(200).json(result);
         }
         catch (err) {
@@ -36,7 +33,7 @@ class ParfumeController {
     }
     async getParfumeList(req, res, next) {
         try {
-            const result = await parfume_service_1.parfumeService.getAParfumeList();
+            const result = await parfumeService.getAParfumeList();
             res.status(200).json(result);
         }
         catch (err) {
@@ -46,7 +43,7 @@ class ParfumeController {
     async deleteById(req, res, next) {
         try {
             const { parfumeId } = req.params;
-            await parfume_service_1.parfumeService.deleteById(parfumeId);
+            await parfumeService.deleteById(parfumeId);
             res.status(204);
         }
         catch (err) {
@@ -54,4 +51,4 @@ class ParfumeController {
         }
     }
 }
-exports.parfumeController = new ParfumeController();
+export const parfumeController = new ParfumeController();

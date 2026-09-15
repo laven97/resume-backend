@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.authController = void 0;
-const auth_service_1 = require("../../service/auth/auth.service");
-const token_service_1 = require("../../service/token/token.service");
+import { authService } from "../../service/auth/auth.service.js";
+import { tokenService } from "../../service/token/token.service.js";
 class AuthController {
     async signUp(req, res, next) {
         try {
             const dto = req.body;
-            const result = await auth_service_1.authService.signUp(dto);
+            const result = await authService.signUp(dto);
             res.status(201).json(result);
         }
         catch (err) {
@@ -17,7 +14,7 @@ class AuthController {
     async signIn(req, res, next) {
         try {
             const dto = req.body;
-            const result = await auth_service_1.authService.signIn(dto);
+            const result = await authService.signIn(dto);
             res.status(200).json(result);
         }
         catch (err) {
@@ -28,7 +25,7 @@ class AuthController {
         try {
             const tokenId = res.locals.tokenId;
             const jwtPayload = res.locals.jwtPayload;
-            await auth_service_1.authService.logout(jwtPayload, tokenId);
+            await authService.logout(jwtPayload, tokenId);
             res.sendStatus(204);
         }
         catch (err) {
@@ -39,7 +36,7 @@ class AuthController {
         try {
             const tokens = res.locals.tokenId;
             const jwtPayload = res.locals.jwtPayload;
-            const result = await token_service_1.tokenService.refreshTokens(tokens, jwtPayload);
+            const result = await tokenService.refreshTokens(tokens, jwtPayload);
             res.status(201).json(result);
         }
         catch (err) {
@@ -47,4 +44,4 @@ class AuthController {
         }
     }
 }
-exports.authController = new AuthController();
+export const authController = new AuthController();

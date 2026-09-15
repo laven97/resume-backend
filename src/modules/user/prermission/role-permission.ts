@@ -1,5 +1,5 @@
-import { UserRole } from "../enum/userRole.enum";
-import { Permissions } from "../types/permision.type";
+import { UserRole } from "../enum/userRole.enum.js";
+import { Permissions } from "../types/permision.type.js";
 
 export const rolePermissions: Record<UserRole, Permissions[]> = {
   [UserRole.ADMIN]: [

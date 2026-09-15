@@ -1,29 +1,26 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.parfumeRepository = void 0;
-const api_error_1 = require("../../../common/errors/api-error");
-const parfume_model_1 = require("../model/parfume.model");
+import { ApiError } from "../../../common/errors/api-error.js";
+import { Parfume } from "../model/parfume.model.js";
 class ParfumeRepository {
     async createParfume(dto) {
-        return await parfume_model_1.Parfume.create(dto);
+        return await Parfume.create(dto);
     }
     async updateById(parfumeId, dto) {
-        const parfume = await parfume_model_1.Parfume.findByIdAndUpdate(parfumeId, dto, {
+        const parfume = await Parfume.findByIdAndUpdate(parfumeId, dto, {
             new: true,
         });
         if (!parfume) {
-            throw new api_error_1.ApiError('Parfume not found ', 404);
+            throw new ApiError('Parfume not found ', 404);
         }
         return parfume;
     }
     async getParfumeList() {
-        return await parfume_model_1.Parfume.find();
+        return await Parfume.find();
     }
     async getParfumeById(parfumeId) {
-        return await parfume_model_1.Parfume.findOne({ _id: parfumeId });
+        return await Parfume.findOne({ _id: parfumeId });
     }
     async deleteById(parfumeId) {
-        await parfume_model_1.Parfume.deleteOne({ _id: parfumeId });
+        await Parfume.deleteOne({ _id: parfumeId });
     }
 }
-exports.parfumeRepository = new ParfumeRepository();
+export const parfumeRepository = new ParfumeRepository();

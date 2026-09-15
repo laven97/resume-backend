@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.passwordController = void 0;
-const password_service_1 = require("../../service/password/password.service");
+import { passwordService } from "../../service/password/password.service.js";
 class PasswordContoller {
     async forgotPasswordSendEmail(req, res, next) {
         try {
             const dto = req.body;
-            await password_service_1.passwordService.forgotPasswordSendEmail(dto);
+            await passwordService.forgotPasswordSendEmail(dto);
             res.sendStatus(204);
         }
         catch (err) {
@@ -17,7 +14,7 @@ class PasswordContoller {
         try {
             const jwtPayload = res.locals.jwtPayload;
             const dto = req.body;
-            await password_service_1.passwordService.forgotPasswordReset(dto, jwtPayload);
+            await passwordService.forgotPasswordReset(dto, jwtPayload);
             res.sendStatus(204);
         }
         catch (err) {
@@ -28,7 +25,7 @@ class PasswordContoller {
         try {
             const jwtPayload = res.locals.jwtPayload;
             const dto = req.body;
-            await password_service_1.passwordService.changePassword(jwtPayload, dto);
+            await passwordService.changePassword(jwtPayload, dto);
             res.sendStatus(204);
         }
         catch (err) {
@@ -38,7 +35,7 @@ class PasswordContoller {
     async verify(req, res, next) {
         try {
             const jwtPayload = res.locals.jwtPayload;
-            await password_service_1.passwordService.verify(jwtPayload);
+            await passwordService.verify(jwtPayload);
             res.sendStatus(204);
         }
         catch (err) {
@@ -46,4 +43,4 @@ class PasswordContoller {
         }
     }
 }
-exports.passwordController = new PasswordContoller();
+export const passwordController = new PasswordContoller();

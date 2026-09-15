@@ -1,16 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.actionTokenRepository = void 0;
-const actionToken_model_1 = require("../../model/token/actionToken.model");
+import { ActionToken } from "../../model/token/actionToken.model.js";
 class ActionTokenRepository {
     async create(dto) {
-        return await actionToken_model_1.ActionToken.create(dto);
+        return await ActionToken.create(dto);
     }
     async getByToken(token) {
-        return await actionToken_model_1.ActionToken.findOne({ token });
+        return await ActionToken.findOne({ token });
     }
     async deleteManyByParams(params) {
-        await actionToken_model_1.ActionToken.deleteMany(params);
+        await ActionToken.deleteMany(params);
     }
 }
-exports.actionTokenRepository = new ActionTokenRepository();
+export const actionTokenRepository = new ActionTokenRepository();

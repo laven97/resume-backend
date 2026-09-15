@@ -1,21 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.userService = void 0;
-const api_error_1 = require("../../../../common/errors/api-error");
-const user_repository_1 = require("../../repository/user/user.repository");
+import { ApiError } from '../../../../common/errors/api-error.js';
+import { userRepository } from '../../repository/user/user.repository.js';
 class UserService {
     async getMe(jwtPayload) {
-        const user = await user_repository_1.userRepository.getById(jwtPayload.id);
+        const user = await userRepository.getById(jwtPayload.id);
         if (!user) {
-            throw new api_error_1.ApiError('User not found', 404);
+            throw new ApiError('User not found', 404);
         }
         return user;
     }
     async updateMe(jwtPayload, dto) {
-        return await user_repository_1.userRepository.updateById(jwtPayload.id, dto);
+        return await userRepository.updateById(jwtPayload.id, dto);
     }
     async deleteMe(jwtPayload) {
-        return await user_repository_1.userRepository.deleteMe(jwtPayload.id);
+        return await userRepository.deleteMe(jwtPayload.id);
     }
 }
-exports.userService = new UserService();
+export const userService = new UserService();

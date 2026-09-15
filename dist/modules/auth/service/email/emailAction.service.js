@@ -1,69 +1,66 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.emailActionService = void 0;
-const api_error_1 = require("../../../../common/errors/api-error");
-const user_repository_1 = require("../../../user/repository/user/user.repository");
-const action_token_type_enum_1 = require("../../enums/action-token-type.enum");
-const email_type_enum_1 = require("../../enums/email-type.enum");
-const actionToken_repository_1 = require("../../repository/token/actionToken.repository");
-const token_service_1 = require("../token/token.service");
-const email_service_1 = require("./email.service");
+import { ApiError } from '../../../../common/errors/api-error.js';
+import { userRepository } from '../../../user/repository/user/user.repository.js';
+import { ActionTokenTypeEnum } from '../../enums/action-token-type.enum.js';
+import { EmaiTypeEnum } from '../../enums/email-type.enum.js';
+import { actionTokenRepository } from '../../repository/token/actionToken.repository.js';
+import { tokenService } from '../token/token.service.js';
+import { emailService } from './email.service.js';
 class EmailActionService {
     async isEmailExistOrThrow(email, excludeUserId) {
-        const user = await user_repository_1.userRepository.findOne({
+        const user = await userRepository.findOne({
             email,
             _id: excludeUserId ? { $ne: excludeUserId } : undefined,
         });
         if (user) {
-            throw new api_error_1.ApiError('Email is already exist', 409);
+            throw new ApiError('Email is already exist', 409);
         }
     }
     async changeEmailRequest(jwtPayload, newEmail) {
-        const user = await user_repository_1.userRepository.getById(jwtPayload.id);
+        const user = await userRepository.getById(jwtPayload.id);
         if (!user) {
-            throw new api_error_1.ApiError('User not found', 404);
+            throw new ApiError('User not found', 404);
         }
         await this.isEmailExistOrThrow(newEmail, jwtPayload.id);
-        const token = await token_service_1.tokenService.generateTokenAction({
+        const token = await tokenService.generateTokenAction({
             id: user._id.toString(),
             role: user.role,
-        }, action_token_type_enum_1.ActionTokenTypeEnum.CHANGE_EMAIL);
-        await actionToken_repository_1.actionTokenRepository.create({
+        }, ActionTokenTypeEnum.CHANGE_EMAIL);
+        await actionTokenRepository.create({
             _userId: user._id.toString(),
-            type: action_token_type_enum_1.ActionTokenTypeEnum.CHANGE_EMAIL,
+            type: ActionTokenTypeEnum.CHANGE_EMAIL,
             token,
             metadata: { newEmail },
         });
-        await email_service_1.emailService.sendMail(email_type_enum_1.EmaiTypeEnum.CHANGE_EMAIL, user.email, {
+        await emailService.sendMail(EmaiTypeEnum.CHANGE_EMAIL, user.email, {
             name: user.name,
             email: newEmail,
             actionToken: token,
         });
     }
     async changeEmailConfirmation(token) {
-        const tokenEntity = await actionToken_repository_1.actionTokenRepository.getByToken(token.token);
+        const tokenEntity = await actionTokenRepository.getByToken(token.token);
         if (!tokenEntity) {
-            throw new api_error_1.ApiError('Token is invalid', 400);
+            throw new ApiError('Token is invalid', 400);
         }
         const newEmail = tokenEntity.metadata?.newEmail;
         if (!newEmail) {
-            throw new api_error_1.ApiError('New email not found', 400);
+            throw new ApiError('New email not found', 400);
         }
-        const user = await user_repository_1.userRepository.getById(tokenEntity._userId);
+        const user = await userRepository.getById(tokenEntity._userId);
         if (!user) {
-            throw new api_error_1.ApiError('User not found', 404);
+            throw new ApiError('User not found', 404);
         }
         await this.isEmailExistOrThrow(newEmail, user._id.toString());
-        await user_repository_1.userRepository.updateById(user._id.toString(), { email: newEmail });
-        await actionToken_repository_1.actionTokenRepository.deleteManyByParams({
+        await userRepository.updateById(user._id.toString(), { email: newEmail });
+        await actionTokenRepository.deleteManyByParams({
             _userId: user._id.toString(),
-            type: action_token_type_enum_1.ActionTokenTypeEnum.CHANGE_EMAIL,
+            type: ActionTokenTypeEnum.CHANGE_EMAIL,
         });
-        await email_service_1.emailService.sendMail(email_type_enum_1.EmaiTypeEnum.CHANGE_EMAIL, user.email, {
+        await emailService.sendMail(EmaiTypeEnum.CHANGE_EMAIL, user.email, {
             name: user.name,
             email: newEmail,
             actionToken: token.token,
         });
     }
 }
-exports.emailActionService = new EmailActionService();
+export const emailActionService = new EmailActionService();

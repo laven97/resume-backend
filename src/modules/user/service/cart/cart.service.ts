@@ -1,7 +1,7 @@
-import { ApiError } from '../../../../common/errors/api-error';
-import { IParfume } from '../../../parfume/interface/parfume.interface';
-import { ICart, ICartParfume } from '../../interface/cart/cart.interface';
-import { cartRepository } from '../../repository/cart/cart.repository';
+import { ApiError } from '../../../../common/errors/api-error.js';
+import { IParfume } from '../../../parfume/interface/parfume.interface.js';
+import { ICart, ICartParfume } from '../../interface/cart/cart.interface.js';
+import { cartRepository } from '../../repository/cart/cart.repository.js';
 
 class CartService {
   public async getCart(): Promise<ICartParfume[]> {

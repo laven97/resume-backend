@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { authMiddleware } from "../../../../common/middleware/auth/auth.middleware";
-import { emailController } from "../../controller/email/email.controller";
-import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum";
+import { authMiddleware } from "../../../../common/middleware/auth/auth.middleware.js";
+import { emailController } from "../../controller/email/email.controller.js";
+import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum.js";
 
 const router = Router();
 

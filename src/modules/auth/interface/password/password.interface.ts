@@ -1,4 +1,4 @@
-import { IUser } from '../../../user/interface/user/user.interface';
+import { IUser } from '../../../user/interface/user/user.interface.js';
 
 export type IResetPasswordSendEmail = Pick<IUser, 'email'>;
 

@@ -1,6 +1,6 @@
-import { IParfume } from '../../../parfume/interface/parfume.interface';
-import { ICart, ICartParfume } from '../../interface/cart/cart.interface';
-import { Cart } from '../../models/cart/cart.model';
+import { IParfume } from '../../../parfume/interface/parfume.interface.js';
+import { ICart, ICartParfume } from '../../interface/cart/cart.interface.js';
+import { Cart } from '../../models/cart/cart.model.js';
 
 class CartRepository {
   public async getCart(): Promise<ICartParfume[]> {

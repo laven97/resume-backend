@@ -1,6 +1,6 @@
-import { IUser } from '../../interface/user/user.interface';
-import { User } from '../../models/user/user.model';
-import { ApiError } from '../../../../common/errors/api-error';
+import { IUser } from '../../interface/user/user.interface.js';
+import { User } from '../../models/user/user.model.js';
+import { ApiError } from '../../../../common/errors/api-error.js';
 import { QueryFilter } from 'mongoose';
 
 class UserRepositiry {

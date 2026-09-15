@@ -1,20 +1,19 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "node16",
-    "moduleResolution": "node16",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
     "rootDir": "./src",
     "outDir": "./dist",
+
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+
     "removeComments": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/@types"
-    ]
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"]
 }

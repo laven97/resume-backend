@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
-import { IEmail } from "../../interface/email/email.interface";
+
+import { IEmail } from "../../interface/email/email.interface.js";
 
 const EmailSchema = new Schema({
   email: { type: String, required: true },

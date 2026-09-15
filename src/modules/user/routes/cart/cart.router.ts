@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { cartController } from '../../controller/cart/cart.controller';
+import { cartController } from '../../controller/cart/cart.controller.js';
 
 const router = Router();
 

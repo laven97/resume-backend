@@ -1,6 +1,6 @@
-import { EmaiTypeEnum } from "../enums/email-type.enum";
-import { EmailPayloadCombine } from "./email-payload-combine.type";
-import { PickRequired } from "./pick-requered";
+import { EmaiTypeEnum } from "../enums/email-type.enum.js";
+import { EmailPayloadCombine } from "./email-payload-combine.type.js";
+import { PickRequired } from "./pick-requered.js";
 
 export type EmailTypeToPayload = {
   [EmaiTypeEnum.WELCOME]: PickRequired<

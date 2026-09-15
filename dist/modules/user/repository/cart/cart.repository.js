@@ -1,30 +1,27 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.cartRepository = void 0;
-const cart_model_1 = require("../../models/cart/cart.model");
+import { Cart } from '../../models/cart/cart.model.js';
 class CartRepository {
     async getCart() {
-        return await cart_model_1.Cart.find();
+        return await Cart.find();
     }
     async addToCart(cartItem) {
-        const newCartItem = new cart_model_1.Cart(cartItem);
+        const newCartItem = new Cart(cartItem);
         return await newCartItem.save();
     }
     async getCartItemById(cartItemId) {
-        return await cart_model_1.Cart.findById(cartItemId);
+        return await Cart.findById(cartItemId);
     }
     async increaseCartItemQuantity(cartItemId, quentity) {
-        const cartItem = await cart_model_1.Cart.findById(cartItemId);
+        const cartItem = await Cart.findById(cartItemId);
         if (!cartItem)
             return null;
         cartItem.quantity += quentity;
         return await cartItem.save();
     }
     async removeCartItem(itemId) {
-        await cart_model_1.Cart.findByIdAndDelete(itemId);
+        await Cart.findByIdAndDelete(itemId);
     }
     async clearCart() {
-        await cart_model_1.Cart.deleteMany();
+        await Cart.deleteMany();
     }
 }
-exports.cartRepository = new CartRepository();
+export const cartRepository = new CartRepository();

@@ -1,41 +1,35 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.emailService = void 0;
-const nodemailer_1 = __importDefault(require("nodemailer"));
-const path_1 = __importDefault(require("path"));
-const nodemailer_express_handlebars_1 = __importDefault(require("nodemailer-express-handlebars"));
-const configs_1 = require("../../../../configs/configs");
-const email_constant_1 = require("../../constant/email.constant");
+import nodemailer from 'nodemailer';
+import path from 'path';
+import hbs from 'nodemailer-express-handlebars';
+import { configs } from '../../../../configs/configs.js';
+import { emailConstant } from '../../constant/email.constant.js';
 class EmailService {
     transporter;
     constructor() {
-        this.transporter = nodemailer_1.default.createTransport({
-            host: configs_1.configs.SMTP_HOST,
-            port: Number(configs_1.configs.SMTP_PORT),
+        this.transporter = nodemailer.createTransport({
+            host: configs.SMTP_HOST,
+            port: Number(configs.SMTP_PORT),
             auth: {
-                user: configs_1.configs.SMTP_USER,
-                pass: configs_1.configs.SMTP_PASSWORD,
+                user: configs.SMTP_USER,
+                pass: configs.SMTP_PASSWORD,
             },
         });
         const hbsOption = {
             viewEngine: {
-                extname: ".hbs",
-                defaultLayout: "main",
-                layoutsDir: path_1.default.join(process.cwd(), "src", "modules", "auth", "templates", "layouts"),
-                partialsDir: path_1.default.join(process.cwd(), "src", "modules", "auth", "templates", "partials"),
+                extname: '.hbs',
+                defaultLayout: 'main',
+                layoutsDir: path.join(process.cwd(), 'src', 'modules', 'auth', 'templates', 'layouts'),
+                partialsDir: path.join(process.cwd(), 'src', 'modules', 'auth', 'templates', 'partials'),
             },
-            viewPath: path_1.default.join(process.cwd(), "src", "modules", "auth", "templates", "views"),
-            extName: ".hbs",
+            viewPath: path.join(process.cwd(), 'src', 'modules', 'auth', 'templates', 'views'),
+            extName: '.hbs',
         };
-        this.transporter.use("compile", (0, nodemailer_express_handlebars_1.default)(hbsOption));
+        this.transporter.use('compile', hbs(hbsOption));
     }
     async sendMail(type, to, context) {
-        const { subject, template } = email_constant_1.emailConstant[type];
-        const options = { from: configs_1.configs.SMTP_FROM, to, subject, template, context };
+        const { subject, template } = emailConstant[type];
+        const options = { from: configs.SMTP_FROM, to, subject, template, context };
         await this.transporter.sendMail(options);
     }
 }
-exports.emailService = new EmailService();
+export const emailService = new EmailService();

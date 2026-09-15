@@ -1,10 +1,10 @@
 import { Response, Request, NextFunction } from "express";
 
 
-import { authService } from "../../service/auth/auth.service";
-import { ITokenPayload } from "../../interface/token/token.interface";
-import { tokenService } from "../../service/token/token.service";
-import { IUser, SignInType } from "../../../user/interface/user/user.interface";
+import { authService } from "../../service/auth/auth.service.js";
+import { ITokenPayload } from "../../interface/token/token.interface.js";
+import { tokenService } from "../../service/token/token.service.js";
+import { IUser, SignInType } from "../../../user/interface/user/user.interface.js";
 
 
 class AuthController {

@@ -1,15 +1,15 @@
 import jwt, { SignOptions } from "jsonwebtoken";
 
-import { configs } from "../../../../configs/configs";
-import { TokenTypeEnum } from "../../enums/token-type.enum";
-import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum";
-import { ApiError } from "../../../../common/errors/api-error";
+import { configs } from "../../../../configs/configs.js";
+import { TokenTypeEnum } from "../../enums/token-type.enum.js";
+import { ActionTokenTypeEnum } from "../../enums/action-token-type.enum.js";
+import { ApiError } from "../../../../common/errors/api-error.js";
 
 import {
   ITokenPair,
   ITokenPayload,
-} from "../../interface/token/token.interface";
-import { tokenRepository } from "../../repository/token/token.repository";
+} from "../../interface/token/token.interface.js";
+import { tokenRepository } from "../../repository/token/token.repository.js";
 
 class TokenService {
   public generateAccessToken(payload: ITokenPayload): string {

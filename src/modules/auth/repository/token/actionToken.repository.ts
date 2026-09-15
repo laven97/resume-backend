@@ -1,5 +1,5 @@
-import { IActionToken } from "../../interface/token/actionTokne.interface";
-import { ActionToken } from "../../model/token/actionToken.model";
+import { IActionToken } from "../../interface/token/actionTokne.interface.js";
+import { ActionToken } from "../../model/token/actionToken.model.js";
 
 
 class ActionTokenRepository {

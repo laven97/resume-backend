@@ -1,5 +1,5 @@
-import { IOldPassword } from "../../interface/password/old-password.interface";
-import { OldPassword } from "../../model/password/oldPassword.model";
+import { IOldPassword } from "../../interface/password/old-password.interface.js";
+import { OldPassword } from "../../model/password/oldPassword.model.js";
 
 class OldTokenRepository {
   public async create(dto: IOldPassword): Promise<IOldPassword> {

@@ -1,8 +1,8 @@
-import { PickRequired } from "../../../auth/types/pick-requered";
-import { IUser } from "../../../user/interface/user/user.interface";
+import { PickRequired } from "../../../auth/types/pick-requered.js";
+import { IUser } from "../../../user/interface/user/user.interface.js";
 
-import { OrderEnum } from "../enum/user.enum";
-import { UserOrderListByEnum } from "../enum/userListOrderBy.enum";
+import { OrderEnum } from "../enum/user.enum.js";
+import { UserOrderListByEnum } from "../enum/userListOrderBy.enum.js";
 
 export interface IUserListQuery {
   limit?: number;

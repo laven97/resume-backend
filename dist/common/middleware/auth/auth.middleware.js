@@ -1,25 +1,22 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.authMiddleware = void 0;
-const api_error_1 = require("../../errors/api-error");
-const token_type_enum_1 = require("../../../modules/auth/enums/token-type.enum");
-const actionToken_repository_1 = require("../../../modules/auth/repository/token/actionToken.repository");
-const token_service_1 = require("../../../modules/auth/service/token/token.service");
+import { ApiError } from "../../errors/api-error.js";
+import { TokenTypeEnum } from "../../../modules/auth/enums/token-type.enum.js";
+import { actionTokenRepository } from "../../../modules/auth/repository/token/actionToken.repository.js";
+import { tokenService } from "../../../modules/auth/service/token/token.service.js";
 class AuthMiddleware {
     async checkAccessToken(req, res, next) {
         try {
             const header = req.headers.authorization;
             if (!header) {
-                throw new api_error_1.ApiError("Token is not provided", 401);
+                throw new ApiError("Token is not provided", 401);
             }
             if (!header.startsWith("Bearer ")) {
-                throw new api_error_1.ApiError("Invalid token format", 401);
+                throw new ApiError("Invalid token format", 401);
             }
             const accessToken = header.split(" ")[1];
             if (!accessToken) {
-                throw new api_error_1.ApiError("Token is empty", 401);
+                throw new ApiError("Token is empty", 401);
             }
-            const payload = await token_service_1.tokenService.verifyToken(accessToken, token_type_enum_1.TokenTypeEnum.ACCESS);
+            const payload = await tokenService.verifyToken(accessToken, TokenTypeEnum.ACCESS);
             req.user = payload;
             next();
         }
@@ -32,12 +29,12 @@ class AuthMiddleware {
             try {
                 const token = req.body.token;
                 if (!token) {
-                    throw new api_error_1.ApiError("Token is not provided", 401);
+                    throw new ApiError("Token is not provided", 401);
                 }
-                const payload = token_service_1.tokenService.verifyToken(token, type);
-                const tokenEntity = await actionToken_repository_1.actionTokenRepository.getByToken(token);
+                const payload = tokenService.verifyToken(token, type);
+                const tokenEntity = await actionTokenRepository.getByToken(token);
                 if (!tokenEntity) {
-                    throw new api_error_1.ApiError("Token is invalid", 401);
+                    throw new ApiError("Token is invalid", 401);
                 }
                 res.locals.jwtPayload = payload;
                 next();
@@ -48,4 +45,4 @@ class AuthMiddleware {
         };
     }
 }
-exports.authMiddleware = new AuthMiddleware();
+export const authMiddleware = new AuthMiddleware();

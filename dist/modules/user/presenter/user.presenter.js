@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.userPresenter = void 0;
 class UserPresenter {
     toPublicResDto(entity) {
         return {
@@ -15,4 +12,4 @@ class UserPresenter {
         };
     }
 }
-exports.userPresenter = new UserPresenter();
+export const userPresenter = new UserPresenter();

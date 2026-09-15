@@ -1,13 +1,13 @@
-import { ApiError } from '../../../../common/errors/api-error';
-import { userRepository } from '../../../user/repository/user/user.repository';
+import { ApiError } from '../../../../common/errors/api-error.js';
+import { userRepository } from '../../../user/repository/user/user.repository.js';
 
-import { ActionTokenTypeEnum } from '../../enums/action-token-type.enum';
-import { EmaiTypeEnum } from '../../enums/email-type.enum';
-import { IActionToken } from '../../interface/token/actionTokne.interface';
-import { ITokenPayload } from '../../interface/token/token.interface';
-import { actionTokenRepository } from '../../repository/token/actionToken.repository';
-import { tokenService } from '../token/token.service';
-import { emailService } from './email.service';
+import { ActionTokenTypeEnum } from '../../enums/action-token-type.enum.js';
+import { EmaiTypeEnum } from '../../enums/email-type.enum.js';
+import { IActionToken } from '../../interface/token/actionTokne.interface.js';
+import { ITokenPayload } from '../../interface/token/token.interface.js';
+import { actionTokenRepository } from '../../repository/token/actionToken.repository.js';
+import { tokenService } from '../token/token.service.js';
+import { emailService } from './email.service.js';
 
 class EmailActionService {
   private async isEmailExistOrThrow(

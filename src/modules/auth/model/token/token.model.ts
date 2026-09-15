@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { IToken } from '../../interface/token/token.interface';
+import { IToken } from '../../interface/token/token.interface.js';
 
 const TokenSchema = new Schema({
   refreshToken: { type: String, required: true },

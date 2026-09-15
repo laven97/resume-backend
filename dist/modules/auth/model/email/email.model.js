@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Email = void 0;
-const mongoose_1 = require("mongoose");
-const EmailSchema = new mongoose_1.Schema({
+import { model, Schema } from "mongoose";
+const EmailSchema = new Schema({
     email: { type: String, required: true },
 });
-exports.Email = (0, mongoose_1.model)("email", EmailSchema);
+export const Email = model("email", EmailSchema);

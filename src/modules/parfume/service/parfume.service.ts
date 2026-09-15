@@ -1,6 +1,6 @@
-import { ApiError } from '../../../common/errors/api-error';
-import { IParfume } from '../interface/parfume.interface';
-import { parfumeRepository } from '../repository/parfume.repository';
+import { ApiError } from '../../../common/errors/api-error.js';
+import { IParfume } from '../interface/parfume.interface.js';
+import { parfumeRepository } from '../repository/parfume.repository.js';
 
 class ParfumeService {
   public async createParfume(dto: IParfume): Promise<IParfume> {

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { IParfume } from '../interface/parfume.interface';
-import { parfumeService } from '../service/parfume.service';
+import { IParfume } from '../interface/parfume.interface.js';
+import { parfumeService } from '../service/parfume.service.js';
 
 class ParfumeController {
   public async createParfume(req: Request, res: Response, next: NextFunction) {

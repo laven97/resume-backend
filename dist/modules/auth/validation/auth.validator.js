@@ -1,34 +1,30 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthValidation = void 0;
-const celebrate_1 = require("celebrate");
-const regex_constant_1 = require("../constant/regex.constant");
-class AuthValidation {
-    static email = celebrate_1.Joi.string()
+import { Joi, Segments } from "celebrate";
+import { regexConstant } from "../constant/regex.constant.js";
+export class AuthValidation {
+    static email = Joi.string()
         .lowercase()
         .trim()
-        .regex(regex_constant_1.regexConstant.EMAIL)
+        .regex(regexConstant.EMAIL)
         .required();
-    static password = celebrate_1.Joi.string()
+    static password = Joi.string()
         .min(6)
-        .regex(regex_constant_1.regexConstant.PASSWORD)
+        .regex(regexConstant.PASSWORD)
         .required();
     static registerUserSchema = {
-        [celebrate_1.Segments.BODY]: celebrate_1.Joi.object({
+        [Segments.BODY]: Joi.object({
             email: this.email,
             password: this.password,
         }),
     };
     static loginUserSchema = {
-        [celebrate_1.Segments.BODY]: celebrate_1.Joi.object({
+        [Segments.BODY]: Joi.object({
             email: this.email,
             password: this.password,
         }),
     };
     static logoutSchema = {
-        [celebrate_1.Segments.BODY]: celebrate_1.Joi.object({
-            refreshToken: celebrate_1.Joi.string().required(),
+        [Segments.BODY]: Joi.object({
+            refreshToken: Joi.string().required(),
         }),
     };
 }
-exports.AuthValidation = AuthValidation;
