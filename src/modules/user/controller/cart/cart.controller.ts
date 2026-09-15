@@ -24,7 +24,7 @@ class CartController {
   }
 
   public async increaseCartItemQuantity(
-    req: Request,
+    req: Request<{ parfumeId: string }>,
     res: Response,
     next: NextFunction,
   ) {
@@ -41,7 +41,7 @@ class CartController {
     }
   }
 
-  public async removeCartItem(req: Request, res: Response, next: NextFunction) {
+  public async removeCartItem(req: Request<{ itemId: string }>, res: Response, next: NextFunction) {
     try {
       const { itemId } = req.params;
       await cartService.removeCartItem(itemId);

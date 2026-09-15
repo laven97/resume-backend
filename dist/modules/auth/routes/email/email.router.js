@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.emailRouter = void 0;
+const express_1 = require("express");
+const auth_middleware_1 = require("../../../../common/middleware/auth/auth.middleware");
+const email_controller_1 = require("../../controller/email/email.controller");
+const action_token_type_enum_1 = require("../../enums/action-token-type.enum");
+const router = (0, express_1.Router)();
+router.post("/email/change-email", auth_middleware_1.authMiddleware.checkActionToken(action_token_type_enum_1.ActionTokenTypeEnum.CHANGE_EMAIL), email_controller_1.emailController.changeEmailRequest);
+router.put("/email/change-email", auth_middleware_1.authMiddleware.checkActionToken(action_token_type_enum_1.ActionTokenTypeEnum.CHANGE_EMAIL), email_controller_1.emailController.changeEmailConfirmation);
+exports.emailRouter = router;

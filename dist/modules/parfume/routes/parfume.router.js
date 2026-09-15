@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.parfumeRouter = void 0;
+const celebrate_1 = require("celebrate");
+const express_1 = require("express");
+const auth_middleware_1 = require("../../../common/middleware/auth/auth.middleware");
+const roleAuthentication_middleware_1 = require("../../../common/middleware/user/roleAuthentication.middleware");
+const parfume_validation_1 = require("../validation/parfume.validation");
+const parfume_controllers_1 = require("../controller/parfume.controllers");
+const common_middleware_1 = require("../../../common/middleware/common/common.middleware");
+const permision_type_1 = require("../../user/types/permision.type");
+const router = (0, express_1.Router)();
+router.post('/create', auth_middleware_1.authMiddleware.checkAccessToken, (0, roleAuthentication_middleware_1.checkAccess)(permision_type_1.Permissions.CREATE_PARFUME), (0, celebrate_1.celebrate)(parfume_validation_1.ParfumeValidation.createParfume), parfume_controllers_1.parfumeController.createParfume);
+router.put('/update:parfumeId', auth_middleware_1.authMiddleware.checkAccessToken, (0, roleAuthentication_middleware_1.checkAccess)(permision_type_1.Permissions.UPDATE_PARFUME), common_middleware_1.commonMiddleware.verifyId, (0, celebrate_1.celebrate)(parfume_validation_1.ParfumeValidation.updateParfume), parfume_controllers_1.parfumeController.updateParfumeById);
+router.get('/parfume:parfumeId', auth_middleware_1.authMiddleware.checkAccessToken, (0, roleAuthentication_middleware_1.checkAccess)(permision_type_1.Permissions.READ_PARFUME), common_middleware_1.commonMiddleware.verifyId, parfume_controllers_1.parfumeController.getParfumeById);
+router.get('/parfume/all', auth_middleware_1.authMiddleware.checkAccessToken, (0, roleAuthentication_middleware_1.checkAccess)(permision_type_1.Permissions.READ_PARFUME), parfume_controllers_1.parfumeController.getParfumeList);
+router.delete('/delete:parfumeId', auth_middleware_1.authMiddleware.checkAccessToken, (0, roleAuthentication_middleware_1.checkAccess)(permision_type_1.Permissions.DELETE_PARFUME), common_middleware_1.commonMiddleware.verifyId, parfume_controllers_1.parfumeController.deleteById);
+exports.parfumeRouter = router;

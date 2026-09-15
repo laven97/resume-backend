@@ -3,7 +3,6 @@ import { NextFunction, Request, Response } from 'express';
 import { IParfume } from '../interface/parfume.interface';
 import { parfumeService } from '../service/parfume.service';
 
-
 class ParfumeController {
   public async createParfume(req: Request, res: Response, next: NextFunction) {
     try {
@@ -16,7 +15,7 @@ class ParfumeController {
   }
 
   public async updateParfumeById(
-    req: Request,
+    req: Request<{ parfumeId: string }>,
     res: Response,
     next: NextFunction,
   ) {
@@ -31,7 +30,11 @@ class ParfumeController {
     }
   }
 
-  public async getParfumeById(req: Request, res: Response, next: NextFunction) {
+  public async getParfumeById(
+    req: Request<{ parfumeId: string }>,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
       const { parfumeId } = req.params;
       const result = await parfumeService.getParfumeById(parfumeId);
@@ -50,7 +53,11 @@ class ParfumeController {
     }
   }
 
-  public async deleteById(req: Request, res: Response, next: NextFunction) {
+  public async deleteById(
+    req: Request<{ parfumeId: string }>,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
       const { parfumeId } = req.params;
       await parfumeService.deleteById(parfumeId);

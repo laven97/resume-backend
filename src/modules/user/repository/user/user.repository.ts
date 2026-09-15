@@ -1,8 +1,7 @@
-import { FilterQuery } from 'mongoose';
-
 import { IUser } from '../../interface/user/user.interface';
 import { User } from '../../models/user/user.model';
 import { ApiError } from '../../../../common/errors/api-error';
+import { QueryFilter } from 'mongoose';
 
 class UserRepositiry {
   public async createUser(dto: IUser): Promise<IUser> {
@@ -13,7 +12,7 @@ class UserRepositiry {
     return await User.findById(id).select('+password');
   }
 
-  public async findOne(params: FilterQuery<IUser>): Promise<IUser | null> {
+  public async findOne(params: QueryFilter<IUser>): Promise<IUser | null> {
     return await User.findOne(params).select('+password');
   }
 

@@ -1,5 +1,6 @@
 import { PickRequired } from "../../../auth/types/pick-requered";
-import { IUser } from "../../../user/interface/user.interface";
+import { IUser } from "../../../user/interface/user/user.interface";
+
 import { OrderEnum } from "../enum/user.enum";
 import { UserOrderListByEnum } from "../enum/userListOrderBy.enum";
 

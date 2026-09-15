@@ -1,4 +1,4 @@
-import { IUser } from "../../../user/interface/user.interface";
+import { IUser } from '../../../user/interface/user/user.interface';
 
 export interface IEmail {
   _id?: string;
@@ -6,4 +6,4 @@ export interface IEmail {
   _userId: string;
 }
 
-export type IChangeEmail = Pick<IUser, "email">;
+export type IChangeEmail = Pick<IUser, 'email'>;

@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.passwordRouter = void 0;
+const express_1 = require("express");
+const password_controller_1 = require("../../controller/password/password.controller");
+const auth_middleware_1 = require("../../../../common/middleware/auth/auth.middleware");
+const common_middleware_1 = require("../../../../common/middleware/common/common.middleware");
+const user_validation_1 = require("../../../user/validation/user.validation");
+const action_token_type_enum_1 = require("../../enums/action-token-type.enum");
+const router = (0, express_1.Router)();
+router.post("/forgot-password", password_controller_1.passwordController.forgotPasswordSendEmail);
+router.put("/forgot-password", auth_middleware_1.authMiddleware.checkAccessToken, auth_middleware_1.authMiddleware.checkActionToken, password_controller_1.passwordController.forgotPasswordReset);
+router.put("/change-password", auth_middleware_1.authMiddleware.checkAccessToken, common_middleware_1.commonMiddleware.isBodyValid(user_validation_1.UserValidation.changePassword), password_controller_1.passwordController.changePassword);
+router.post("/verify", auth_middleware_1.authMiddleware.checkActionToken(action_token_type_enum_1.ActionTokenTypeEnum.VERIFY_EMAIL), password_controller_1.passwordController.verify);
+exports.passwordRouter = router;
