@@ -1,14 +1,15 @@
 import { Types } from 'mongoose';
-import { IParfume } from '../../../parfume/interface/parfume.interface.js';
+import { IPerfume } from '../../../perfume/interface/perfume.interface.js';
+
 
 export interface ICart {
   _id?: string;
   userId: Types.ObjectId;
-  parfume: Types.ObjectId;
+  perfume: Types.ObjectId;
   quantity: number;
 }
 
-export type ICartParfume = Pick<
-  IParfume,
+export type ICartPerfume = Pick<
+  IPerfume,
   'id' | 'name' | 'title' | 'price' | 'photo'
 >;

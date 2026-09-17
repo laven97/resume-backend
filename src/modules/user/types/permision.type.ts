@@ -1,6 +1,7 @@
 export enum Permissions {
-  UPDATE_PARFUME = "parfume:update",
-  CREATE_PARFUME = "parfume:create",
-  DELETE_PARFUME = "parfume:delete",
-  READ_PARFUME = "parfume:read",
+  UPDATE_PERFUME = "perfume:update",
+  CREATE_PERFUME = "perfume:create",
+  DELETE_PERFUME = "perfume:delete",
+  READ_PERFUME = "perfume:read",
+  ADD_TO_FAVORITES = "perfume:add_to_favorites",
 }

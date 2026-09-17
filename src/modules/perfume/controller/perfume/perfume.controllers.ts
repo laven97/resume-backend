@@ -1,13 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
+import { IPerfume } from '../../interface/perfume.interface.js';
+import { perfumeService } from '../../service/perfume/perfume.service.js';
 
-import { IParfume } from '../interface/parfume.interface.js';
-import { parfumeService } from '../service/parfume.service.js';
-
-class ParfumeController {
-  public async createParfume(req: Request, res: Response, next: NextFunction) {
+class PerfumeController {
+  public async createPerfume(req: Request, res: Response, next: NextFunction) {
     try {
-      const dto = req.body as IParfume;
-      const result = await parfumeService.createParfume(dto);
+      const dto = req.body as IPerfume;
+      const result = await perfumeService.createParfume(dto);
       res.status(201).json(result);
     } catch (err) {
       next(err);
@@ -21,9 +20,9 @@ class ParfumeController {
   ) {
     try {
       const { parfumeId } = req.params;
-      const dto = req.body as IParfume;
+      const dto = req.body as IPerfume;
 
-      const result = await parfumeService.updateParfumeById(parfumeId, dto);
+      const result = await perfumeService.updateParfumeById(parfumeId, dto);
       res.status(201).json(result);
     } catch (err) {
       next(err);
@@ -37,7 +36,7 @@ class ParfumeController {
   ) {
     try {
       const { parfumeId } = req.params;
-      const result = await parfumeService.getParfumeById(parfumeId);
+      const result = await perfumeService.getParfumeById(parfumeId);
       res.status(200).json(result);
     } catch (err) {
       next(err);
@@ -46,7 +45,7 @@ class ParfumeController {
 
   public async getParfumeList(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await parfumeService.getAParfumeList();
+      const result = await perfumeService.getAParfumeList();
       res.status(200).json(result);
     } catch (err) {
       next(err);
@@ -60,7 +59,7 @@ class ParfumeController {
   ) {
     try {
       const { parfumeId } = req.params;
-      await parfumeService.deleteById(parfumeId);
+      await perfumeService.deleteById(parfumeId);
       res.status(204);
     } catch (err) {
       next(err);
@@ -68,4 +67,4 @@ class ParfumeController {
   }
 }
 
-export const parfumeController = new ParfumeController();
+export const perfumeController = new PerfumeController();

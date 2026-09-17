@@ -1,7 +1,7 @@
 import { Segments } from "celebrate";
 import Joi from "joi";
 
-export class ParfumeValidation {
+export class PerfumeValidation {
   private static name = Joi.string().trim();
   private static title = Joi.string().trim().min(5);
 //   private static description = Joi.string().trim().min(5);
@@ -13,7 +13,7 @@ export class ParfumeValidation {
 // private static stoke = Joi.boolean()
   private static price = Joi.number();
 
-  public static createParfume = {
+  public static createPerfume = {
     [Segments.BODY]: Joi.object({
       name: this.name.required(),
       title: this.title.required(),
@@ -27,7 +27,7 @@ export class ParfumeValidation {
     }),
   };
 
-  public static updateParfume = {
+  public static updatePerfume = {
     [Segments.BODY]:Joi.object({
       name:this.name,
       title:this.title,

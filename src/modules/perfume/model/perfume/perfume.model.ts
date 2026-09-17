@@ -1,8 +1,8 @@
 import { model, Schema } from 'mongoose';
 
-import { IParfume } from '../interface/parfume.interface.js';
+import { IPerfume } from '../../interface/perfume.interface.js';
 
-const parfumeSchema = new Schema({
+const perfumeSchema = new Schema({
   id: { type: String, requered: true },
   name: { type: String, required: true },
   title: { type: String, required: true },
@@ -16,4 +16,4 @@ const parfumeSchema = new Schema({
   price: { type: Number, required: true },
 });
 
-export const Parfume = model<IParfume>('parfume', parfumeSchema);
+export const Perfume = model<IPerfume>('parfume', perfumeSchema);

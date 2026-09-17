@@ -162,8 +162,8 @@ Backend API for a perfume catalog application with authentication, admin panel, 
   GET /              -> Get current user's cart  ✅
   POST /add          -> Add perfume to cart ✅
   PUT /item/:id      -> Update item quantity  ✅
-  DELETE /item/:id   -> Remove item from cart
-  DELETE /clear      -> Clear cart
+  DELETE /item/:id   -> Remove item from cart ✅
+  DELETE /clear      -> Clear cart ✅
 
 
 

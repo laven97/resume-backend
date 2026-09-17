@@ -1,15 +1,16 @@
 import { ApiError } from '../../../../common/errors/api-error.js';
-import { IParfume } from '../../../parfume/interface/parfume.interface.js';
-import { ICart, ICartParfume } from '../../interface/cart/cart.interface.js';
+import { IPerfume } from '../../../perfume/interface/perfume.interface.js';
+
+import { ICart, ICartPerfume } from '../../interface/cart/cart.interface.js';
 import { cartRepository } from '../../repository/cart/cart.repository.js';
 
 class CartService {
-  public async getCart(): Promise<ICartParfume[]> {
+  public async getCart(): Promise<ICartPerfume[]> {
     return await cartRepository.getCart();
   }
 
   public async addToCart(
-    cartItem: IParfume,
+    cartItem: IPerfume,
     cartItemId: string,
   ): Promise<ICart> {
     const cartItemById = await cartRepository.getCartItemById(cartItemId);
